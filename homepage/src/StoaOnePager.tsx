@@ -1218,7 +1218,7 @@ export default function StoaOnePager() {
 
         <Reveal delay={1}>
           <h1>
-            Bulid and Scale your <span className="accent">Business</span>.<br />
+            Build and Scale your <span className="accent">Business</span>.<br />
             By prompt.
           </h1>
         </Reveal>
@@ -1513,7 +1513,7 @@ export default function StoaOnePager() {
             { end: 213, suffix: "M+", label: "Tokens Processed" },
             { end: 20, suffix: "+", label: "AI Models" },
             { end: 200, suffix: "+", label: "Active Agents" },
-            { end: 100, suffix: "k+", label: "Users Records" },
+            { end: 100, suffix: "k+", label: "User Records" },
           ].map((s, i) => (
             <Reveal key={s.label} delay={Math.min(i + 1, 4) as 1 | 2 | 3 | 4}>
               <div className="stoa-stat">

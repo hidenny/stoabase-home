@@ -1188,7 +1188,10 @@ function LangSwitcher() {
           {SUPPORTED_LANGS.map(lng => (
             <button
               key={lng}
-              onClick={() => { i18n.changeLanguage(lng); setOpen(false); }}
+              onClick={() => {
+                const path = lng === 'en' ? '/' : `/${lng}/`;
+                window.location.href = path;
+              }}
               style={{ display: 'block', width: '100%', textAlign: 'left', padding: '9px 14px', fontSize: '13px', fontWeight: lng === current ? 700 : 400, color: lng === current ? '#7c3aed' : '#334155', background: lng === current ? '#f5f3ff' : 'transparent', border: 'none', cursor: 'pointer' }}
             >
               {t(`langLabel.${lng}`)}
@@ -1209,6 +1212,24 @@ export default function StoaOnePager() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
   }, []);
+
+  // Update document title + OG/Twitter meta tags when language changes
+  useEffect(() => {
+    const title = t('meta.title');
+    const desc  = t('meta.description');
+    const locale = t('meta.ogLocale');
+    document.title = title;
+    const setMeta = (sel: string, val: string) => {
+      const el = document.querySelector<HTMLMetaElement>(sel);
+      if (el) el.content = val;
+    };
+    setMeta('meta[name="description"]', desc);
+    setMeta('meta[property="og:title"]', title);
+    setMeta('meta[property="og:description"]', desc);
+    setMeta('meta[property="og:locale"]', locale);
+    setMeta('meta[name="twitter:title"]', title);
+    setMeta('meta[name="twitter:description"]', desc);
+  }, [t]);
 
   const mainBizTabs = BUSINESS_TABS
     .filter(tab => tab.id !== "yourbiz")
@@ -1708,7 +1729,7 @@ export default function StoaOnePager() {
         </Reveal>
         <Reveal delay={4}>
           <p style={{ marginTop: 40, fontSize: "0.8rem", color: "var(--slate-500)" }}>
-            stoabase.ai
+            © 2025 stoabase.ai
           </p>
         </Reveal>
       </section>

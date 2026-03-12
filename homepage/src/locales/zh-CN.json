@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "title": "StoaBase — 一个提示，搞定你的业务。",
+    "description": "一个提示，建立整个 AI 原生企业——无需基础架构，无需开发团队。教育、医疗、初创均已实战验证。",
+    "ogLocale": "zh_CN"
+  },
   "nav": { "zeroToHundred": "0 到 100", "howItWorks": "如何运作", "apps": "Apps", "platform": "平台", "contact": "联系我们" },
   "hero": {
     "tag": "一个提示。无限可能。",

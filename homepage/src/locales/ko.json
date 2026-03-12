@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "title": "StoaBase — 프롬프트 하나로. 비즈니스 완성.",
+    "description": "프롬프트 하나로 AI 네이티브 비즈니스 전체를 구축하세요. 인프라 불필요, 개발팀 불필요. 교육, 의료, 스타트업에서 검증된 성능.",
+    "ogLocale": "ko_KR"
+  },
   "nav": { "zeroToHundred": "0에서 100으로", "howItWorks": "작동 방식", "apps": "앱", "platform": "플랫폼", "contact": "문의하기" },
   "hero": {
     "tag": "하나의 프롬프트. 무한한 가능성.",

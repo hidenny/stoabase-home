@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "title": "StoaBase — プロンプトひとつで、ビジネスを実現。",
+    "description": "プロンプトひとつで、AIネイティブ会社まるごと構築。インフラ不要、開発チーム不要。教育・医療・スタートアップで実績あり。",
+    "ogLocale": "ja_JP"
+  },
   "nav": { "zeroToHundred": "0から100へ", "howItWorks": "仕組み", "apps": "アプリ", "platform": "プラットフォーム", "contact": "お問い合わせ" },
   "hero": {
     "tag": "ひとつのプロンプト。可能性は、無限大。",

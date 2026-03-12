@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "title": "StoaBase — 一句 Prompt，壯大你的生意。",
+    "description": "一句 Prompt，建立整個 AI 原生企業——毫需基建，毫需開發團隊。教育、醫療、初創均已實戰驗證。",
+    "ogLocale": "zh_HK"
+  },
   "nav": { "zeroToHundred": "0 到 100", "howItWorks": "點運作", "apps": "Apps", "platform": "平台", "contact": "聯絡我們" },
   "hero": {
     "tag": "一句 Prompt。無限可能。",

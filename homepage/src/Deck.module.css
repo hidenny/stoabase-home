@@ -1,0 +1,1081 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   Pitch Deck — Fullscreen Slide Presentation
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+@property --bg-c1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #0f0c29;
+}
+
+@property --bg-c2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #302b63;
+}
+
+@property --bg-c3 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: #24243e;
+}
+
+.deckWrapper {
+    position: fixed;
+    inset: 0;
+    --bg-c1: #0f0c29;
+    --bg-c2: #302b63;
+    --bg-c3: #24243e;
+    background: linear-gradient(135deg, var(--bg-c1) 0%, var(--bg-c2) 50%, var(--bg-c3) 100%);
+    overflow: hidden;
+    font-family: Inter, -apple-system, "system-ui", "Segoe UI", Roboto, sans-serif;
+    color: #fff;
+    z-index: 100;
+    -webkit-overflow-scrolling: touch;
+    transition: --bg-c1 1s ease, --bg-c2 1s ease, --bg-c3 1s ease;
+}
+
+.waveCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.18;
+}
+
+/* ─── Slides Container ──────────────────────────────────────────────────────── */
+
+.slidesTrack {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    position: relative;
+    z-index: 2;
+}
+
+.slide {
+    min-width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 80px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .deckWrapper {
+        overflow-y: auto;
+        overflow-x: hidden;
+        scroll-snap-type: y proximity;
+    }
+
+    .slidesTrack {
+        flex-direction: column;
+        height: auto;
+        transform: none !important;
+        transition: none;
+    }
+
+    .slide {
+        min-width: 100vw;
+        width: 100vw;
+        min-height: 100vh;
+        height: auto;
+        padding: 40px 20px 120px;
+        align-items: flex-start;
+        overflow: visible;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide {
+        padding: 32px 16px 110px;
+    }
+}
+
+/* ─── Slide Backgrounds ─────────────────────────────────────────────────────── */
+
+.bgGradient1 {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+}
+
+.bgGradient2 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.bgGradient3 {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 60%, #21262d 100%);
+}
+
+.bgGradient4 {
+    background: linear-gradient(135deg, #2d1b69 0%, #11001c 60%, #1e0836 100%);
+}
+
+.bgGradient5 {
+    background: linear-gradient(135deg, #0c1021 0%, #1b2838 50%, #0d1b2a 100%);
+}
+
+/* ─── Slide Content Layouts ─────────────────────────────────────────────────── */
+
+.slideContent {
+    max-width: 1600px;
+    width: 100%;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .slideContent {
+        max-width: 100%;
+    }
+}
+
+.splitLayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1600px;
+    width: 100%;
+    z-index: 2;
+}
+
+@media (max-width: 900px) {
+    .splitLayout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
+
+.splitText {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.splitVisual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+/* ─── Typography ────────────────────────────────────────────────────────────── */
+
+.slideTag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #a78bfa;
+    margin-bottom: 8px;
+}
+
+.slideTitle {
+    font-size: clamp(1.6rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #e0e7ff 50%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.slideTitleAccent {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(135deg, #a78bfa 0%, #818cf8 50%, #6366f1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.slideSubtitle {
+    font-size: clamp(0.9rem, 2vw, 1.25rem);
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+@media (max-width: 768px) {
+    .slideTag {
+        letter-spacing: 2px;
+        font-size: 0.65rem;
+    }
+
+    .slideSubtitle {
+        max-width: 100%;
+    }
+}
+
+.sectionTitle {
+    font-size: clamp(1.3rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.sectionDesc {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: #94a3b8;
+    line-height: 1.7;
+}
+
+/* ─── Stat Grid ─────────────────────────────────────────────────────────────── */
+
+.statGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.statCard {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.statCard:hover {
+    transform: translateY(-2px);
+    border-color: rgba(167, 139, 250, 0.3);
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #a78bfa, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.statLabel {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ─── Feature List ──────────────────────────────────────────────────────────── */
+
+.featureList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    line-height: 1.45;
+}
+
+.featureIcon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    background: rgba(167, 139, 250, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    margin-top: 1px;
+}
+
+/* ─── Pipeline / Flow ───────────────────────────────────────────────────────── */
+
+.pipelineGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.pipelineStep {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px 14px;
+    text-align: center;
+    position: relative;
+}
+
+.pipelineStep::after {
+    content: "→";
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6366f1;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.pipelineStep:last-child::after {
+    display: none;
+}
+
+.pipelineEmoji {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+}
+
+.pipelineLabel {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* ─── Image Card ────────────────────────────────────────────────────────────── */
+
+.imageCard {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    max-width: 520px;
+    width: 100%;
+}
+
+.imageCard img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ─── Comparison Table ──────────────────────────────────────────────────────── */
+
+.compTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    font-size: 0.85rem;
+}
+
+.compTable th,
+.compTable td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.compTable th {
+    color: #a78bfa;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.compTable td {
+    color: #cbd5e1;
+}
+
+.compTable tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.compHighlight {
+    background: rgba(167, 139, 250, 0.08) !important;
+}
+
+/* ─── Team Grid ─────────────────────────────────────────────────────────────── */
+
+.teamGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.teamCard {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: border-color 0.2s ease;
+}
+
+.teamCard:hover {
+    border-color: rgba(167, 139, 250, 0.3);
+}
+
+.teamAvatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #a78bfa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 auto 12px;
+}
+
+.teamName {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.teamRole {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+/* ─── CTA Block ─────────────────────────────────────────────────────────────── */
+
+.ctaBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+}
+
+.ctaTitle {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+.ctaSubtitle {
+    font-size: 1.125rem;
+    color: #94a3b8;
+    max-width: 600px;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ctaBtn {
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.ctaBtnPrimary {
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+.ctaBtnPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+}
+
+.ctaBtnSecondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.ctaBtnSecondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* ─── Navigation ────────────────────────────────────────────────────────────── */
+
+.navBar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 15, 30, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 10px 20px;
+    z-index: 110;
+}
+
+.navDots {
+    display: flex;
+    gap: 6px;
+}
+
+.navDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.navDotActive {
+    background: #a78bfa;
+    width: 24px;
+    border-radius: 4px;
+}
+
+.navBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.navBtn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.navBtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.slideNumber {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-variant-numeric: tabular-nums;
+    min-width: 48px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .navBar {
+        bottom: 12px;
+        padding: 8px 14px;
+        gap: 8px;
+        border-radius: 16px;
+        max-width: calc(100vw - 24px);
+    }
+
+    .navDots {
+        gap: 4px;
+    }
+
+    .navDot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .navDotActive {
+        width: 18px;
+    }
+
+    .navBtn {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+    }
+
+    .slideNumber {
+        font-size: 0.65rem;
+        min-width: 36px;
+    }
+}
+
+/* ─── Background Decoration ─────────────────────────────────────────────────── */
+
+.bgOrb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.bgOrb1 {
+    width: 400px;
+    height: 400px;
+    background: #7c3aed;
+    top: -100px;
+    right: -100px;
+}
+
+.bgOrb2 {
+    width: 300px;
+    height: 300px;
+    background: #3b82f6;
+    bottom: -50px;
+    left: -50px;
+}
+
+/* ─── SDK Stack Visual ──────────────────────────────────────────────────────── */
+
+.stackDiagram {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.stackLayer {
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.stackApp {
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: #fff;
+}
+
+.stackSDK {
+    background: rgba(167, 139, 250, 0.2);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    color: #c4b5fd;
+}
+
+.stackServices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.stackServiceItem {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+/* ─── Pricing Grid ──────────────────────────────────────────────────────────── */
+
+.pricingGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.pricingCard {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px 20px;
+    transition: border-color 0.2s ease;
+}
+
+.pricingCard:hover {
+    border-color: rgba(167, 139, 250, 0.3);
+}
+
+.pricingHighlight {
+    border-color: rgba(167, 139, 250, 0.4);
+    background: rgba(167, 139, 250, 0.06);
+}
+
+.pricingTier {
+    font-size: 0.75rem;
+    color: #a78bfa;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.pricingPrice {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 8px 0 4px;
+}
+
+.pricingDesc {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* ─── Audio Podcast Bar ────────────────────────────────────────────────────── */
+
+.micToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 120;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    background: rgba(15, 15, 30, 0.8);
+    backdrop-filter: blur(12px);
+    color: #a78bfa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.micToggle:hover {
+    background: rgba(124, 58, 237, 0.25);
+    border-color: #7c3aed;
+}
+
+.micToggleActive {
+    background: rgba(124, 58, 237, 0.35);
+    border-color: #7c3aed;
+    color: #c4b5fd;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+.audioBar {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 115;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(10, 10, 26, 0.92);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 18px;
+    padding: 10px 20px;
+    min-width: 420px;
+    max-width: 720px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.audioSpeaker {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.audioSpeakerDenny {
+    background: rgba(124, 58, 237, 0.25);
+    border: 1.5px solid #7c3aed;
+    color: #c4b5fd;
+}
+
+.audioSpeakerKen {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1.5px solid #3b82f6;
+    color: #93c5fd;
+}
+
+.audioDisplay {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.82rem;
+    color: #e2e8f0;
+    line-height: 1.4;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.audioDisplayInner {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 8s linear infinite;
+}
+
+.audioDisplayInner:hover {
+    animation-play-state: paused;
+}
+
+/* Karaoke-style highlight sweep */
+.audioDisplayInner.audioHighlight {
+    background: linear-gradient(
+        90deg,
+        #fff 0%,
+        #fff var(--highlight-pct, 0%),
+        #94a3b8 calc(var(--highlight-pct, 0%) + 2%),
+        #94a3b8 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.audioControls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.audioCtrlBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.audioCtrlBtn:hover {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.audioCtrlBtn:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.audioPlayBtn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: #fff;
+}
+
+.audioPlayBtn:hover {
+    box-shadow: 0 0 16px rgba(124, 58, 237, 0.4);
+}
+
+.audioProgress {
+    font-size: 0.68rem;
+    color: #64748b;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    min-width: 40px;
+    text-align: center;
+}
+
+.audioLoading {
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.audioLangBtns {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.audioLangBtn {
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #64748b;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.audioLangBtn:hover {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.audioLangActive {
+    color: #c4b5fd;
+    background: rgba(124, 58, 237, 0.2);
+}
+
+.audioCloseBtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.audioCloseBtn:hover {
+    color: #ef4444;
+}
+
+@media (max-width: 640px) {
+    .audioBar {
+        min-width: unset;
+        left: 12px;
+        right: 12px;
+        transform: none;
+        max-width: unset;
+        gap: 8px;
+        padding: 8px 12px;
+        bottom: 68px;
+    }
+
+    .audioSpeaker {
+        width: 26px;
+        height: 26px;
+        font-size: 0.55rem;
+    }
+
+    .audioDisplay {
+        font-size: 0.75rem;
+    }
+
+    .audioPlayBtn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .audioCtrlBtn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .audioLangBtn {
+        padding: 3px 6px;
+        font-size: 0.6rem;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* ─── Responsive Grid Utilities ────────────────────────────────────────────── */
+/* Used by JS to apply responsive grids that collapse on mobile              */
+
+.grid3col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.grid2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.grid4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .grid3col {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .grid2col {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .grid4col {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid4col {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .micToggle {
+        top: 12px;
+        right: 12px;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+    }
+}

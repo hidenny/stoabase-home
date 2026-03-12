@@ -576,7 +576,7 @@ const BUSINESS_TABS: BusinessTab[] = [
    CAPABILITY ITEMS
    ══════════════════════════════════════════════════════ */
 const CAPABILITIES: { Icon: React.ComponentType<any>; label: string; desc: string }[] = [
-  { Icon: Brain, label: "AI & LLM Services", desc: "12+ models, routing, chat, streaming, tools, memory" },
+  { Icon: Brain, label: "AI & LLM Services", desc: "50+ models, routing, chat, streaming, tools, memory" },
   { Icon: Activity, label: "Unified Tracking", desc: "Events, sessions, per-user analytics" },
   { Icon: Database, label: "Data Service", desc: "KV storage, user records, structured data" },
   { Icon: Settings, label: "Workflow Engine", desc: "Visual flow builder, MCP, tool orchestration" },
@@ -647,7 +647,7 @@ function StoaLogo({ size = 56 }: { size?: number }) {
       {/* Capital (top horizontal bar) */}
       <rect x="2" y="4" width="48" height="6" rx="2.5" fill="url(#p-g)" />
       {/* Three columns with graduated opacity */}
-      <rect x="8"  y="12" width="7" height="28" rx="2" fill="url(#p-g)" />
+      <rect x="8" y="12" width="7" height="28" rx="2" fill="url(#p-g)" />
       <rect x="22" y="12" width="7" height="28" rx="2" fill="url(#p-g)" opacity="0.8" />
       <rect x="36" y="12" width="7" height="28" rx="2" fill="url(#p-g)" opacity="0.6" />
       {/* Stylobate (bottom horizontal bar) */}
@@ -670,7 +670,7 @@ function StoaLogoBlack({ size = 56 }: { size?: number }) {
       {/* Capital (top horizontal bar) */}
       <rect x="2" y="4" width="48" height="6" rx="2.5" fill="#1a1a1a" />
       {/* Three columns */}
-      <rect x="8"  y="12" width="7" height="28" rx="2" fill="#1a1a1a" />
+      <rect x="8" y="12" width="7" height="28" rx="2" fill="#1a1a1a" />
       <rect x="22" y="12" width="7" height="28" rx="2" fill="#1a1a1a" />
       <rect x="36" y="12" width="7" height="28" rx="2" fill="#1a1a1a" />
       {/* Stylobate (bottom horizontal bar) */}
@@ -1602,7 +1602,7 @@ export default function StoaOnePager() {
         <Reveal>
           <div className="stoa-showcase-heading">
             <h2>Everything you need to run<br />an AI-native business.</h2>
-            <p>18+ integrated services. One platform. Zero vendor sprawl.</p>
+            <p>12+ integrated services. One platform. Zero vendor sprawl.</p>
           </div>
         </Reveal>
 

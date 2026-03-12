@@ -1507,7 +1507,7 @@ export default function StoaOnePager() {
           <Reveal delay={3}>
             <p className="stoa-cost-bottom">
               {t('cost.bottomLine')}<br />
-              <strong style={{ color: "var(--slate-100)" }}>{t('cost.bottomLineStrong')}</strong>
+              <strong style={{ color: "var(--slate-100)", whiteSpace: 'pre-line' }}>{t('cost.bottomLineStrong')}</strong>
             </p>
           </Reveal>
         </section>

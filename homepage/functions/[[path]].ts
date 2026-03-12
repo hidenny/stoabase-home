@@ -44,12 +44,13 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     return env.ASSETS.fetch(request);
   }
 
-  // Let API routes pass to their specific function handlers
+  // Pass through /api/ routes to their specific function handlers
+  // (functions/api/waitlist.ts handles /api/waitlist)
   if (firstSegment === 'api') {
-    return fetch(request);
+    return env.ASSETS.fetch(request);
   }
 
-  // Not a language path — serve index.html
+  // Not a language path — serve index.html as-is
   const meta = LANG_META[firstSegment];
   if (!meta) {
     return env.ASSETS.fetch(
@@ -87,9 +88,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
       },
     })
     .on('meta[name="description"]', {
-      element(el) {
-        el.setAttribute('content', meta.description);
-      },
+      element(el) { el.setAttribute('content', meta.description); },
     })
     .on('meta[property="og:title"]', {
       element(el) { el.setAttribute('content', meta.title); },

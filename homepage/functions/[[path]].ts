@@ -100,6 +100,11 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     `<meta name="twitter:description" content="${d}" />`
   );
 
+  // Patch og:url and twitter:url to the language-specific URL
+  const langUrl = `https://stoabase.ai/${firstSegment}/`;
+  html = html.replace(/(<meta\s+property="og:url"\s+content=")[^"]*(")/i, `$1${langUrl}$2`);
+  html = html.replace(/(<meta\s+name="twitter:url"\s+content=")[^"]*(")/i, `$1${langUrl}$2`);
+
   return new Response(html, {
     status: 200,
     headers: {

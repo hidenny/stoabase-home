@@ -1,5 +1,6 @@
 interface Env {
   ASSETS: Fetcher;
+  DB: D1Database;
 }
 
 const LANG_META: Record<string, { title: string; description: string; ogLocale: string; htmlLang: string }> = {
@@ -35,91 +36,90 @@ const LANG_META: Record<string, { title: string; description: string; ogLocale: 
   },
 };
 
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   const url = new URL(request.url);
-  const firstSegment = url.pathname.split('/').filter(Boolean)[0] ?? '';
+  const { pathname } = url;
 
-  // Pass through static assets
-  if (firstSegment.includes('.') || url.pathname.includes('/assets/')) {
+  // ── Waitlist API ──────────────────────────────────────────────
+  if (pathname === '/api/waitlist') {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS });
+    }
+    if (request.method !== 'POST') {
+      return new Response('Method Not Allowed', { status: 405 });
+    }
+    try {
+      const body = await request.json() as { email?: string; name?: string; lang?: string };
+      const email = (body.email ?? '').trim().toLowerCase();
+      const name  = (body.name  ?? '').trim().slice(0, 100);
+      const lang  = (body.lang  ?? 'en').slice(0, 10);
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return Response.json({ ok: false, error: 'invalid_email' }, { status: 400, headers: CORS });
+      }
+
+      await env.DB.prepare(
+        'INSERT INTO waitlist (email, name, lang) VALUES (?, ?, ?)'
+      ).bind(email, name || null, lang).run();
+
+      return Response.json({ ok: true }, { status: 201, headers: CORS });
+    } catch (err: unknown) {
+      const msg = (err as Error).message ?? '';
+      if (msg.includes('UNIQUE')) {
+        return Response.json({ ok: false, error: 'already_joined' }, { status: 409, headers: CORS });
+      }
+      return Response.json({ ok: false, error: 'server_error' }, { status: 500, headers: CORS });
+    }
+  }
+
+  // ── Static assets ─────────────────────────────────────────────
+  const firstSegment = pathname.split('/').filter(Boolean)[0] ?? '';
+  if (firstSegment.includes('.') || pathname.includes('/assets/')) {
     return env.ASSETS.fetch(request);
   }
 
-  // Pass through /api/ routes to their specific function handlers
-  // (functions/api/waitlist.ts handles /api/waitlist)
-  if (firstSegment === 'api') {
-    return env.ASSETS.fetch(request);
-  }
-
-  // Not a language path — serve index.html as-is
+  // ── Language paths — patch meta via HTMLRewriter ──────────────
   const meta = LANG_META[firstSegment];
   if (!meta) {
+    // Not a language path — serve index.html
     return env.ASSETS.fetch(
       new Request(`${url.origin}/index.html`, { headers: request.headers })
     );
   }
 
-  // Fetch base index.html
   const baseResponse = await env.ASSETS.fetch(
     new Request(`${url.origin}/index.html`, { headers: request.headers })
   );
-
-  if (!baseResponse.ok) {
-    return env.ASSETS.fetch(request);
-  }
+  if (!baseResponse.ok) return env.ASSETS.fetch(request);
 
   const langUrl = `${url.origin}/${firstSegment}/`;
   let titleWritten = false;
 
-  // Use HTMLRewriter — Cloudflare's streaming HTML transformer
   const rewriter = new HTMLRewriter()
-    .on('html', {
-      element(el) {
-        el.setAttribute('lang', meta.htmlLang);
-      },
-    })
+    .on('html', { element(el) { el.setAttribute('lang', meta.htmlLang); } })
     .on('title', {
       text(text) {
-        if (!titleWritten) {
-          text.replace(meta.title);
-          titleWritten = true;
-        } else {
-          text.remove();
-        }
+        if (!titleWritten) { text.replace(meta.title); titleWritten = true; }
+        else { text.remove(); }
       },
     })
-    .on('meta[name="description"]', {
-      element(el) { el.setAttribute('content', meta.description); },
-    })
-    .on('meta[property="og:title"]', {
-      element(el) { el.setAttribute('content', meta.title); },
-    })
-    .on('meta[property="og:description"]', {
-      element(el) { el.setAttribute('content', meta.description); },
-    })
-    .on('meta[property="og:locale"]', {
-      element(el) { el.setAttribute('content', meta.ogLocale); },
-    })
-    .on('meta[property="og:url"]', {
-      element(el) { el.setAttribute('content', langUrl); },
-    })
-    .on('meta[name="twitter:title"]', {
-      element(el) { el.setAttribute('content', meta.title); },
-    })
-    .on('meta[name="twitter:description"]', {
-      element(el) { el.setAttribute('content', meta.description); },
-    })
-    .on('meta[name="twitter:url"]', {
-      element(el) { el.setAttribute('content', langUrl); },
-    });
+    .on('meta[name="description"]',        { element(el) { el.setAttribute('content', meta.description); } })
+    .on('meta[property="og:title"]',       { element(el) { el.setAttribute('content', meta.title); } })
+    .on('meta[property="og:description"]', { element(el) { el.setAttribute('content', meta.description); } })
+    .on('meta[property="og:locale"]',      { element(el) { el.setAttribute('content', meta.ogLocale); } })
+    .on('meta[property="og:url"]',         { element(el) { el.setAttribute('content', langUrl); } })
+    .on('meta[name="twitter:title"]',      { element(el) { el.setAttribute('content', meta.title); } })
+    .on('meta[name="twitter:description"]',{ element(el) { el.setAttribute('content', meta.description); } })
+    .on('meta[name="twitter:url"]',        { element(el) { el.setAttribute('content', langUrl); } });
 
-  const transformed = rewriter.transform(baseResponse);
-
-  return new Response(transformed.body, {
+  return new Response(rewriter.transform(baseResponse).body, {
     status: 200,
-    headers: {
-      'content-type': 'text/html; charset=UTF-8',
-      'cache-control': 'public, max-age=300, s-maxage=3600',
-      'x-lang': firstSegment,
-    },
+    headers: { 'content-type': 'text/html; charset=UTF-8', 'cache-control': 'public, max-age=300', 'x-lang': firstSegment },
   });
 };

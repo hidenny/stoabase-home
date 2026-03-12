@@ -90,5 +90,16 @@
     "matchMakerPrompt": "「建立一個真正有效的 AI 交友應用程式」",
     "alphaQuantPrompt": "「建立一個自主投資追蹤和分析應用程式」"
   },
+  "waitlist": {
+    "title": "加入候名名單",
+    "sub": "成為首批體驗用戶。",
+    "namePlaceholder": "你的名字（可不填）",
+    "emailPlaceholder": "你的電子郵件地址",
+    "submit": "立即報名",
+    "submitting": "提交中...",
+    "success": "已登錄！我們會盡快聯絡你。",
+    "alreadyJoined": "你已經在候名名單上！",
+    "error": "出了一些問題，請再試一次。"
+  },
   "langLabel": { "en": "English", "zh-HK": "繁中（港）", "zh-TW": "繁中（台）", "zh-CN": "简中", "ja": "日本語", "ko": "한국어" }
 }

@@ -35,77 +35,82 @@ const LANG_META: Record<string, { title: string; description: string; ogLocale: 
   },
 };
 
-const SUPPORTED_LANG_KEYS = Object.keys(LANG_META);
-
-function escapeAttr(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-}
-
 export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   const url = new URL(request.url);
   const firstSegment = url.pathname.split('/').filter(Boolean)[0] ?? '';
 
-  // Pass through static assets (anything with a file extension)
+  // Pass through static assets
   if (firstSegment.includes('.') || url.pathname.includes('/assets/')) {
     return env.ASSETS.fetch(request);
   }
 
-  // If not a known language segment, serve index.html as-is
+  // Not a language path — serve index.html
   const meta = LANG_META[firstSegment];
   if (!meta) {
-    return env.ASSETS.fetch(new Request(`${url.origin}/index.html`, { headers: request.headers }));
-  }
-
-  // Fetch the English base index.html explicitly
-  let html: string;
-  try {
-    const baseRes = await env.ASSETS.fetch(
+    return env.ASSETS.fetch(
       new Request(`${url.origin}/index.html`, { headers: request.headers })
     );
-    if (!baseRes.ok) {
-      return env.ASSETS.fetch(request);
-    }
-    html = await baseRes.text();
-  } catch {
+  }
+
+  // Fetch base index.html
+  const baseResponse = await env.ASSETS.fetch(
+    new Request(`${url.origin}/index.html`, { headers: request.headers })
+  );
+
+  if (!baseResponse.ok) {
     return env.ASSETS.fetch(request);
   }
 
-  const t = escapeAttr(meta.title);
-  const d = escapeAttr(meta.description);
+  const langUrl = `${url.origin}/${firstSegment}/`;
+  let titleWritten = false;
 
-  // Patch <html lang>
-  html = html.replace(/(<html[^>]*\slang=")[^"]*(")/i, `$1${meta.htmlLang}$2`);
+  // Use HTMLRewriter — Cloudflare's streaming HTML transformer
+  const rewriter = new HTMLRewriter()
+    .on('html', {
+      element(el) {
+        el.setAttribute('lang', meta.htmlLang);
+      },
+    })
+    .on('title', {
+      text(text) {
+        if (!titleWritten) {
+          text.replace(meta.title);
+          titleWritten = true;
+        } else {
+          text.remove();
+        }
+      },
+    })
+    .on('meta[name="description"]', {
+      element(el) {
+        el.setAttribute('content', meta.description);
+      },
+    })
+    .on('meta[property="og:title"]', {
+      element(el) { el.setAttribute('content', meta.title); },
+    })
+    .on('meta[property="og:description"]', {
+      element(el) { el.setAttribute('content', meta.description); },
+    })
+    .on('meta[property="og:locale"]', {
+      element(el) { el.setAttribute('content', meta.ogLocale); },
+    })
+    .on('meta[property="og:url"]', {
+      element(el) { el.setAttribute('content', langUrl); },
+    })
+    .on('meta[name="twitter:title"]', {
+      element(el) { el.setAttribute('content', meta.title); },
+    })
+    .on('meta[name="twitter:description"]', {
+      element(el) { el.setAttribute('content', meta.description); },
+    })
+    .on('meta[name="twitter:url"]', {
+      element(el) { el.setAttribute('content', langUrl); },
+    });
 
-  // Patch <title>
-  html = html.replace(/<title>[^<]*<\/title>/, `<title>${t}</title>`);
+  const transformed = rewriter.transform(baseResponse);
 
-  // Patch og:title
-  html = html.replace(/(<meta\s+property="og:title"\s+content=")[^"]*(")/i, `$1${t}$2`);
-
-  // Patch og:description (handles multi-line attribute)
-  html = html.replace(
-    /<meta\s+property="og:description"[^>]*>/i,
-    `<meta property="og:description" content="${d}" />`
-  );
-
-  // Patch og:locale
-  html = html.replace(/(<meta\s+property="og:locale"\s+content=")[^"]*(")/i, `$1${meta.ogLocale}$2`);
-
-  // Patch twitter:title
-  html = html.replace(/(<meta\s+name="twitter:title"\s+content=")[^"]*(")/i, `$1${t}$2`);
-
-  // Patch twitter:description (handles multi-line attribute)
-  html = html.replace(
-    /<meta\s+name="twitter:description"[^>]*>/i,
-    `<meta name="twitter:description" content="${d}" />`
-  );
-
-  // Patch og:url and twitter:url to the language-specific URL
-  const langUrl = `https://stoabase.ai/${firstSegment}/`;
-  html = html.replace(/(<meta\s+property="og:url"\s+content=")[^"]*(")/i, `$1${langUrl}$2`);
-  html = html.replace(/(<meta\s+name="twitter:url"\s+content=")[^"]*(")/i, `$1${langUrl}$2`);
-
-  return new Response(html, {
+  return new Response(transformed.body, {
     status: 200,
     headers: {
       'content-type': 'text/html; charset=UTF-8',

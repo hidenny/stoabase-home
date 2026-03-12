@@ -90,5 +90,16 @@
     "matchMakerPrompt": "\"실제로 작동하는 AI 데이팅 앱을 만들어줘\"",
     "alphaQuantPrompt": "\"자율 투자 추적 및 분석 앱을 만들어줘\""
   },
+  "waitlist": {
+    "title": "대기자 명단에 등록",
+    "sub": "출시시 가장 먼저 안내를 받으세요.",
+    "namePlaceholder": "이름 (선택사항)",
+    "emailPlaceholder": "이메일 주소",
+    "submit": "지금 등록하기",
+    "submitting": "등록 중...",
+    "success": "등록되었습니다! 출시 시 안내해 드리겠습니다.",
+    "alreadyJoined": "이미 등록되어 있습니다!",
+    "error": "오류가 발생했습니다. 다시 시도해 주세요."
+  },
   "langLabel": { "en": "English", "zh-HK": "繁中（港）", "zh-TW": "繁中（台）", "zh-CN": "简中", "ja": "日本語", "ko": "한국어" }
 }

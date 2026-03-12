@@ -1203,11 +1203,95 @@ function LangSwitcher() {
   );
 }
 
+function WaitlistModal({ onClose }: { onClose: () => void }) {
+  const { t, i18n } = useTranslation();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'already' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, lang: i18n.language }),
+      });
+      const data = await res.json() as { ok: boolean; error?: string };
+      if (data.ok) setStatus('success');
+      else if (data.error === 'already_joined') setStatus('already');
+      else setStatus('error');
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  const done = status === 'success' || status === 'already';
+
+  return (
+    <div
+      onClick={onClose}
+      style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(6px)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{ background: '#fff', borderRadius: '24px', padding: '48px 40px', maxWidth: '420px', width: '100%', boxShadow: '0 32px 80px rgba(0,0,0,0.15)', position: 'relative' }}
+      >
+        <button onClick={onClose} style={{ position: 'absolute', top: 16, right: 16, background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: '1.2rem', lineHeight: 1 }}>✕</button>
+
+        {done ? (
+          <div style={{ textAlign: 'center', padding: '24px 0' }}>
+            <div style={{ fontSize: '3rem', marginBottom: '16px' }}>{status === 'success' ? '🎉' : '✅'}</div>
+            <p style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--ink)', margin: '0 0 8px' }}>
+              {status === 'success' ? t('waitlist.success') : t('waitlist.alreadyJoined')}
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--ink)', margin: '0 0 8px' }}>{t('waitlist.title')}</h2>
+            <p style={{ color: 'var(--ink-muted)', margin: '0 0 28px', fontSize: '0.95rem' }}>{t('waitlist.sub')}</p>
+
+            <input
+              type="text"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              placeholder={t('waitlist.namePlaceholder')}
+              style={{ width: '100%', padding: '12px 16px', border: '1px solid #e2e8f0', borderRadius: '10px', fontSize: '0.95rem', marginBottom: '12px', boxSizing: 'border-box', outline: 'none', fontFamily: 'inherit' }}
+            />
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder={t('waitlist.emailPlaceholder')}
+              style={{ width: '100%', padding: '12px 16px', border: '1px solid #e2e8f0', borderRadius: '10px', fontSize: '0.95rem', marginBottom: '24px', boxSizing: 'border-box', outline: 'none', fontFamily: 'inherit' }}
+            />
+
+            {status === 'error' && (
+              <p style={{ color: '#ef4444', fontSize: '0.85rem', margin: '-12px 0 16px', textAlign: 'center' }}>{t('waitlist.error')}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === 'loading'}
+              style={{ width: '100%', padding: '14px', background: 'var(--ink)', color: '#fff', border: 'none', borderRadius: '12px', fontSize: '1rem', fontWeight: 700, cursor: status === 'loading' ? 'not-allowed' : 'pointer', opacity: status === 'loading' ? 0.7 : 1, fontFamily: 'inherit', transition: 'opacity 0.2s' }}
+            >
+              {status === 'loading' ? t('waitlist.submitting') : t('waitlist.submit')}
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function StoaOnePager() {
   const { t } = useTranslation();
   const capabilities = useCapabilities();
   const [activeTab, setActiveTab] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
   const scrollTo = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
@@ -1244,6 +1328,7 @@ export default function StoaOnePager() {
 
   return (
     <div className="stoa-page">
+      {waitlistOpen && <WaitlistModal onClose={() => setWaitlistOpen(false)} />}
       {/* ── Ambient orbs ── */}
       <div className="stoa-orb stoa-orb-1" />
       <div className="stoa-orb stoa-orb-2" />
@@ -1326,10 +1411,9 @@ export default function StoaOnePager() {
         <Reveal delay={4}>
           <div className="stoa-hero-cta">
             <div className="stoa-tooltip-wrap">
-              <a href="#" className="stoa-btn-primary" onClick={e => e.preventDefault()} style={{ pointerEvents: 'none', opacity: 0.85 }}>
+            <button className="stoa-btn-primary" onClick={() => setWaitlistOpen(true)}>
                 {t('hero.joinWaitlist')} <ArrowRight size={16} />
-              </a>
-              <span className="stoa-tooltip">{t('hero.comingSoon')}</span>
+              </button>
             </div>
             <a href="mailto:hello@stoabase.ai" className="stoa-btn-secondary">
               {t('hero.getInTouch')}
@@ -1717,10 +1801,9 @@ export default function StoaOnePager() {
         <Reveal delay={3}>
           <div className="stoa-hero-cta">
             <div className="stoa-tooltip-wrap">
-              <a href="#" className="stoa-btn-primary" onClick={e => e.preventDefault()} style={{ pointerEvents: 'none', opacity: 0.85 }}>
+            <button className="stoa-btn-primary" onClick={() => setWaitlistOpen(true)}>
                 {t('hero.joinWaitlist')} <ArrowRight size={16} />
-              </a>
-              <span className="stoa-tooltip">{t('hero.comingSoon')}</span>
+              </button>
             </div>
             <a href="mailto:hello@stoabase.ai" className="stoa-btn-secondary">
               hello@stoabase.ai

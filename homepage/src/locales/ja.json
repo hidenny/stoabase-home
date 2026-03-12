@@ -90,5 +90,16 @@
     "matchMakerPrompt": "「本当に機能するAIマッチングアプリを作って」",
     "alphaQuantPrompt": "「自律型の投資追跡・分析アプリを作って」"
   },
+  "waitlist": {
+    "title": "候補リストに登録",
+    "sub": "リリース時にイチ早くお知らせします。",
+    "namePlaceholder": "お名前（任意）",
+    "emailPlaceholder": "メールアドレス",
+    "submit": "登録する",
+    "submitting": "登録中...",
+    "success": "登録完了！リリース時にご連絡します。",
+    "alreadyJoined": "すでに登録済みです！",
+    "error": "エラーが発生しました。再度お試しください。"
+  },
   "langLabel": { "en": "English", "zh-HK": "繁中（港）", "zh-TW": "繁中（台）", "zh-CN": "简中", "ja": "日本語", "ko": "한국어" }
 }

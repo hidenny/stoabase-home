@@ -160,6 +160,17 @@
     "matchMakerPrompt": "\"Build an AI-first dating app that actually works\"",
     "alphaQuantPrompt": "\"Build an autonomous investment tracking and analysis app\""
   },
+  "waitlist": {
+    "title": "Join the Waitlist",
+    "sub": "Be the first to know when we launch.",
+    "namePlaceholder": "Your name (optional)",
+    "emailPlaceholder": "Your email address",
+    "submit": "Join Waitlist",
+    "submitting": "Joining...",
+    "success": "You're on the list! We'll be in touch.",
+    "alreadyJoined": "You're already on the list!",
+    "error": "Something went wrong. Please try again."
+  },
   "langLabel": {
     "en": "English",
     "zh-HK": "繁中（港）",

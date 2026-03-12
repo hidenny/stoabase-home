@@ -26,7 +26,7 @@
     "ofThe": "精力不到十分之一。\n預算不到十分之一。\n時間不到十分之一。",
     "traditional": "傳統方式", "budget": "預算", "timeline": "時程", "team": "團隊", "infra": "基礎架構",
     "buildEverything": "自行建置一切", "onePersonAI": "1 人 + AI", "included": "已包含",
-    "bottomLine": "相同產品。相同使用者。10 倍 AI 智能。", "bottomLineStrong": "成本只需十分之一。"
+    "bottomLine": "相同產品。相同使用者。", "bottomLineStrong": "成本低 10 倍。AI 智能高 10 倍。"
   },
   "scale": {
     "heading": "從 1 到 100。", "headingAccent": "從原型到獨角獸。",

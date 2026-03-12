@@ -1410,11 +1410,9 @@ export default function StoaOnePager() {
 
         <Reveal delay={4}>
           <div className="stoa-hero-cta">
-            <div className="stoa-tooltip-wrap">
             <button className="stoa-btn-primary" onClick={() => setWaitlistOpen(true)}>
-                {t('hero.joinWaitlist')} <ArrowRight size={16} />
-              </button>
-            </div>
+              {t('hero.joinWaitlist')} <ArrowRight size={16} />
+            </button>
             <a href="mailto:hello@stoabase.ai" className="stoa-btn-secondary">
               {t('hero.getInTouch')}
             </a>
@@ -1800,11 +1798,9 @@ export default function StoaOnePager() {
         </Reveal>
         <Reveal delay={3}>
           <div className="stoa-hero-cta">
-            <div className="stoa-tooltip-wrap">
             <button className="stoa-btn-primary" onClick={() => setWaitlistOpen(true)}>
-                {t('hero.joinWaitlist')} <ArrowRight size={16} />
-              </button>
-            </div>
+              {t('hero.joinWaitlist')} <ArrowRight size={16} />
+            </button>
             <a href="mailto:hello@stoabase.ai" className="stoa-btn-secondary">
               hello@stoabase.ai
             </a>

@@ -1,0 +1,89 @@
+{
+  "nav": { "zeroToHundred": "0 to 100", "howItWorks": "How it works", "apps": "Apps", "platform": "Platform", "contact": "Contact" },
+  "hero": {
+    "tag": "PROMPT TO GROW",
+    "headline1": "Build and Scale your", "headline2": "Business", "headline3": "By prompt.",
+    "sub": "Not just one app — an entire automated business from a prompt. Storefront, accounting, support, operations — every layer of your company built by AI, running together, sharing context.",
+    "joinWaitlist": "Join Waitlist", "getInTouch": "Get in Touch", "comingSoon": "Coming soon",
+    "badge": { "noCode": "No Code Required", "modules": "12+ AI Modules", "proven": "Production-Proven" }
+  },
+  "prompts": [
+    "Build me an AI nutrition app that scans meals and tracks macros",
+    "Create a company accounting dashboard with AI expense categorization",
+    "Launch an AI tutoring platform with adaptive quizzes and analytics",
+    "Deploy a medical records system with AI-powered patient insights",
+    "Ship a podcast studio with AI-generated episodes and show notes",
+    "Build a customer support copilot with knowledge search and voice"
+  ],
+  "cost": {
+    "heading": "Test & launch at", "headingAccent": "10% the cost.",
+    "sub": "Stop burning runway on dev teams and infrastructure. StoaBase lets you test, iterate, and launch a real AI-native business at a fraction of the traditional cost.",
+    "ofThe": "of the effort.\nof the budget.\nof the time.",
+    "traditional": "Traditional", "budget": "Budget", "timeline": "Timeline", "team": "Team", "infra": "Infra",
+    "buildEverything": "Build everything", "onePersonAI": "1 person + AI", "included": "Included",
+    "bottomLine": "Same product. Same users. Same AI intelligence.", "bottomLineStrong": "Just 10× cheaper to prove it works."
+  },
+  "scale": {
+    "heading": "Scale 1 to 100.", "headingAccent": "From prototype to unicorn.",
+    "sub": "Start with one AI app. Prove it works. Then scale to an entire product suite — all sharing users, data, and intelligence. That's how you build a billion-dollar business.",
+    "launch": { "phase": "Launch", "desc": "Validate your idea in weeks, not months" },
+    "pmf": { "phase": "Product-Market Fit", "desc": "Expand with complementary AI products" },
+    "growth": { "phase": "Growth Engine", "desc": "Full AI-native business suite running autonomously" },
+    "unicorn": { "phase": "Unicorn", "desc": "Platform effects compound. Every app makes every other app better." },
+    "week1": "Week 1", "month3": "Month 3", "year1": "Year 1", "year3": "Year 3"
+  },
+  "how": {
+    "heading": "From idea to production", "headingLine2": "in one prompt.",
+    "sub": "No infrastructure. No dev team. Just describe what you need.",
+    "step1Title": "Describe your app", "step1Desc": "Type a prompt. \"Build me an AI nutrition tracker with meal scanning.\" That's it — plain English.",
+    "step2Title": "AI builds your stack", "step2Desc": "StoaBase wires up the right AI models, data layer, knowledge base, user roles, and analytics — automatically.",
+    "step3Title": "Deploy & grow", "step3Desc": "Your app is live. Add more apps to your workspace — they all share context, users, and AI capabilities."
+  },
+  "traction": {
+    "heading": "Already in production.", "sub": "Education proved the platform. Healthcare confirmed it scales.",
+    "tokens": "Tokens Processed", "models": "AI Models", "agents": "Active Agents", "users": "User Records"
+  },
+  "buildingWith": "Building with StoaBase",
+  "quote": "\"One business. Many apps. Every app shares users, knowledge, memory, and analytics — that's building an AI-native company.\"",
+  "autonomous": { "heading": "Everything you need to run", "headingLine2": "an autonomous company.", "sub": "One platform. Build a full suite of AI apps for your business — all sharing context, users, and intelligence." },
+  "platform": { "heading": "The AI base layer for", "headingLine2": "everything you build.", "sub": "12+ core services. One platform. Zero vendor sprawl." },
+  "cta": { "heading": "The foundation for", "headingLine2": "what you build next.", "sub": "One platform. Full AI stack. No Code." },
+  "cap": {
+    "aiLabel": "AI & LLM Services", "aiDesc": "50+ models, routing, chat, streaming, tools, memory",
+    "trackLabel": "Unified Tracking", "trackDesc": "Events, sessions, per-user analytics",
+    "dataLabel": "Data Service", "dataDesc": "KV storage, user records, structured data",
+    "workflowLabel": "Workflow Engine", "workflowDesc": "Visual flow builder, MCP, tool orchestration",
+    "knowledgeLabel": "Knowledge Mgmt", "knowledgeDesc": "RAG, document search, vector retrieval",
+    "docsLabel": "Document Parsing", "docsDesc": "PDF, URL, file processing & extraction",
+    "speechLabel": "Speech & VAD", "speechDesc": "TTS, STT, voice activity detection",
+    "gameLabel": "Game AI / 3D", "gameDesc": "Interactive content, asset gen, 3D engine",
+    "mediaLabel": "Media Generation", "mediaDesc": "Image, audio, video generation",
+    "usersLabel": "User Management", "usersDesc": "Profiles, roles, org-level access",
+    "socialLabel": "Social Feed", "socialDesc": "Posts, comments, real-time sharing",
+    "advancedLabel": "Advanced Features", "advancedDesc": "Podcasts, mind maps, quizzes, co-edit"
+  },
+  "tabs": {
+    "rodysseySubline": "AI-powered Smart Campus — from classroom to home",
+    "iomicsSubline": "Personal healthcare & clinical AI — from vitals to insights",
+    "yourbizSubline": "Launch your next big app idea with autonomous AI infrastructure",
+    "roAgentDesc": "Personal AI tutor companion — before, during and after class with knowledge support.",
+    "realmDesc": "A private NotebookLM — synthesize any content into knowledge, audio, and interactive learning.",
+    "aiLessonDesc": "Generate interactive lessons and quizzes from textbook content.",
+    "magicCardDesc": "AR flashcards — scan printed cards to unlock 3D learning.",
+    "classAnalyticsDesc": "Per-student and class-wide AI insights for teachers.",
+    "aiWorksheetDesc": "Interactive, AI-scaffolded worksheets with shadow teacher support.",
+    "mediVaultDesc": "AI-powered patient records with clinical knowledge base.",
+    "nutriScanDesc": "Scan meals, track macros, get personalised nutrition coaching.",
+    "symptomCheckDesc": "AI triage — describe symptoms, get guided next steps.",
+    "medSchedulerDesc": "Smart appointment booking with AI-optimised scheduling.",
+    "rxTrackerDesc": "Medication management with AI adherence coaching.",
+    "wellnessAIDesc": "Mental health check-ins, mood tracking, and AI journaling.",
+    "rpgStudioDesc": "Build a complete 2D RPG with generated sprite assets, dynamic quests, and autonomous live-ops.",
+    "matchMakerDesc": "A dating app powered by vector similarity matching, autonomous icebreakers, and behavioral analytics.",
+    "alphaQuantDesc": "Personal hedge-fund AI — real-time portfolio tracking, sentiment analysis, and automated trade alerts.",
+    "rpgStudioPrompt": "\"Build an autonomous 2D pixel RPG game\"",
+    "matchMakerPrompt": "\"Build an AI-first dating app that actually works\"",
+    "alphaQuantPrompt": "\"Build an autonomous investment tracking and analysis app\""
+  },
+  "langLabel": { "en": "English", "zh-HK": "繁中（港）", "zh-TW": "繁中（台）", "zh-CN": "简中", "ja": "日本語", "ko": "한국어" }
+}

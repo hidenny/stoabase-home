@@ -1080,11 +1080,21 @@
   background: rgba(25, 25, 25, 0.04);
 }
 
+/* ── Mobile: lang + hamburger row ───────────────────── */
+.stoa-nav-mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
 @media (max-width: 768px) {
   .stoa-nav-links {
     display: none;
   }
   .stoa-nav-hamburger {
+    display: flex;
+  }
+  .stoa-nav-mobile-actions {
     display: flex;
   }
 }

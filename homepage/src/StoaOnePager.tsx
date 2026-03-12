@@ -4,10 +4,13 @@
  */
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import i18n, { SUPPORTED_LANGS } from "./i18n";
+import type { SupportedLang } from "./i18n";
 import {
   Brain, Database, BookOpen, Settings, Headphones, Monitor,
   Image, UserCheck, Globe, Puzzle, FileText, Activity,
-  Zap, ArrowRight, Sparkles, Shield, BarChart3, Search, Menu, X
+  Zap, ArrowRight, Sparkles, Shield, BarChart3, Menu, X, Languages
 } from "lucide-react";
 import "./StoaOnePager.css";
 
@@ -77,20 +80,20 @@ function CountUp({ end, start = 0, suffix = "", prefix = "", duration = 2000 }: 
 /* ══════════════════════════════════════════════════════
    TYPING PROMPT
    ══════════════════════════════════════════════════════ */
-const PROMPTS = [
-  "Build me an AI nutrition app that scans meals and tracks macros",
-  "Create a company accounting dashboard with AI expense categorization",
-  "Launch an AI tutoring platform with adaptive quizzes and analytics",
-  "Deploy a medical records system with AI-powered patient insights",
-  "Ship a podcast studio with AI-generated episodes and show notes",
-  "Build a customer support copilot with knowledge search and voice",
-];
+function usePrompts() {
+  const { t } = useTranslation();
+  return [
+    t('prompts.0'), t('prompts.1'), t('prompts.2'),
+    t('prompts.3'), t('prompts.4'), t('prompts.5'),
+  ];
+}
 
 function TypingPrompt() {
+  const prompts = usePrompts();
   const [idx, setIdx] = useState(0);
   const [charIdx, setCharIdx] = useState(0);
   const [phase, setPhase] = useState<"typing" | "pause" | "clear">("typing");
-  const text = PROMPTS[idx];
+  const text = prompts[idx];
   const textRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -114,7 +117,7 @@ function TypingPrompt() {
     }
     if (phase === "clear") {
       setCharIdx(0);
-      setIdx(i => (i + 1) % PROMPTS.length);
+      setIdx(i => (i + 1) % prompts.length);
       setPhase("typing");
     }
   }, [phase, charIdx, text]);
@@ -133,7 +136,7 @@ function TypingPrompt() {
 /* ══════════════════════════════════════════════════════
    BUSINESS TAB CATEGORIES
    ══════════════════════════════════════════════════════ */
-type AppCard = { name: string; desc: string; tag: string; tagLabel: string; prompt: string; color: string; bgGrad: [string, string]; svg: React.ReactNode; services?: string[] };
+type AppCard = { name: string; i18nKey?: string; i18nPromptKey?: string; desc: string; tag: string; tagLabel: string; prompt: string; color: string; bgGrad: [string, string]; svg: React.ReactNode; services?: string[] };
 type BusinessTab = { id: string; label: string; emoji: string; logo?: string; subline: string; color: string; apps: AppCard[] };
 
 function MiniSvg({ color, children }: { color: string; children: React.ReactNode }) {
@@ -295,10 +298,10 @@ function CinematicRealmSvg() {
 const BUSINESS_TABS: BusinessTab[] = [
   {
     id: "rodyssey", label: "R'ODYSSEY", emoji: "", logo: "https://cdn.prod.website-files.com/696aeaae8c07b3c89ecdc734/696aebb3fb7e6cacdbb2a9a6_68411b8fb1f5e00e1c860062_6794b073b2b67e995cfddf8f_ro_logo.png", color: "#a78bfa",
-    subline: "AI-powered Smart Campus — from classroom to home",
+    subline: "rodysseySubline",
     apps: [
       {
-        name: "RO Agent", desc: "Personal AI tutor companion — before, during and after class with knowledge support.", tag: "tutor", tagLabel: "AI TUTOR", prompt: "\"Build an AI tutor that guides students through lessons\"", color: "#a78bfa", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#a78bfa">
+        name: "RO Agent", i18nKey: "roAgentDesc", desc: "Personal AI tutor companion — before, during and after class with knowledge support.", tag: "tutor", tagLabel: "AI TUTOR", prompt: "\"Build an AI tutor that guides students through lessons\"", color: "#a78bfa", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#a78bfa">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="200" height="36" rx="18" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="80" y="82" fontSize="9" fill="#64748b">"I don't understand fractions..."</text>
@@ -315,9 +318,9 @@ const BUSINESS_TABS: BusinessTab[] = [
           </rect>
         </MiniSvg>
       },
-      { name: "ReaLM", desc: "A private NotebookLM — synthesize any content into knowledge, audio, and interactive learning.", tag: "twin", tagLabel: "KNOWLEDGE ENGINE", prompt: "\"Build a private NotebookLM for my organisation\"", color: "#22d3ee", bgGrad: ["transparent", "transparent"], svg: <CinematicRealmSvg /> },
+      { name: "ReaLM", i18nKey: "realmDesc", desc: "A private NotebookLM — synthesize any content into knowledge, audio, and interactive learning.", tag: "twin", tagLabel: "KNOWLEDGE ENGINE", prompt: "\"Build a private NotebookLM for my organisation\"", color: "#22d3ee", bgGrad: ["transparent", "transparent"], svg: <CinematicRealmSvg /> },
       {
-        name: "AI Lesson Studio", desc: "Generate interactive lessons and quizzes from textbook content.", tag: "lesson", tagLabel: "CONTENT GEN", prompt: "\"Generate lessons from my curriculum automatically\"", color: "#818cf8", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#818cf8">
+        name: "AI Lesson Studio", i18nKey: "aiLessonDesc", desc: "Generate interactive lessons and quizzes from textbook content.", tag: "lesson", tagLabel: "CONTENT GEN", prompt: "\"Generate lessons from my curriculum automatically\"", color: "#818cf8", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#818cf8">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="280" height="40" rx="8" fill="#eef2ff" stroke="#c7d2fe" strokeWidth="1" />
           <text x="80" y="83" fontSize="8" fill="#4f46e5"><tspan fontWeight="700">Topic:</tspan> Cellular Respiration for Grade 9</text>
@@ -335,7 +338,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "Magic Card AR", desc: "AR flashcards — scan printed cards to unlock 3D learning.", tag: "ar", tagLabel: "AR LEARNING", prompt: "\"Create AR flashcards from my study materials\"", color: "#f472b6", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#f472b6">
+        name: "Magic Card AR", i18nKey: "magicCardDesc", desc: "AR flashcards — scan printed cards to unlock 3D learning.", tag: "ar", tagLabel: "AR LEARNING", prompt: "\"Create AR flashcards from my study materials\"", color: "#f472b6", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#f472b6">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="80" y="70" width="80" height="120" rx="6" fill="#fff" stroke="#cbd5e1" strokeWidth="1" />
           <text x="120" y="110" textAnchor="middle" fontSize="16">🖨️</text>
@@ -351,7 +354,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "Class Analytics", desc: "Per-student and class-wide AI insights for teachers.", tag: "analytics", tagLabel: "ANALYTICS", prompt: "\"Show me class performance with AI recommendations\"", color: "#34d399", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#34d399">
+        name: "Class Analytics", i18nKey: "classAnalyticsDesc", desc: "Per-student and class-wide AI insights for teachers.", tag: "analytics", tagLabel: "ANALYTICS", prompt: "\"Show me class performance with AI recommendations\"", color: "#34d399", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#34d399">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="100" height="120" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           {[40, 25, 45, 30, 50].map((h, i) => <rect key={i} x={75 + i * 14} y={150 - h} width="8" height={h} rx="2" fill="#cbd5e1" />)}
@@ -371,7 +374,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "AI Worksheet", desc: "Interactive, AI-scaffolded worksheets with shadow teacher support.", tag: "worksheet", tagLabel: "INTERACTIVE", prompt: "\"Generate differentiated worksheets for my class\"", color: "#fbbf24", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#fbbf24">
+        name: "AI Worksheet", i18nKey: "aiWorksheetDesc", desc: "Interactive, AI-scaffolded worksheets with shadow teacher support.", tag: "worksheet", tagLabel: "INTERACTIVE", prompt: "\"Generate differentiated worksheets for my class\"", color: "#fbbf24", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#fbbf24">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="280" height="32" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="80" y="78" fontSize="8" fill="#64748b">Student enters wrong answer: <tspan fill="#ef4444" fontWeight="600">3/4 + 1/2 = 4/6</tspan></text>
@@ -388,10 +391,10 @@ const BUSINESS_TABS: BusinessTab[] = [
   },
   {
     id: "iomics", label: "iOMICS", emoji: "", logo: "https://cdn.prod.website-files.com/684c3a383dd53828f418a8f3/685d7b2774af5c94cfdfd7c8_iomics_logo.png", color: "#fb7185",
-    subline: "Personal healthcare & clinical AI — from vitals to insights",
+    subline: "iomicsSubline",
     apps: [
       {
-        name: "MediVault", desc: "AI-powered patient records with clinical knowledge base.", tag: "medical", tagLabel: "RECORDS", prompt: "\"Deploy a medical records system with AI insights\"", color: "#fb7185", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#fb7185">
+        name: "MediVault", i18nKey: "mediVaultDesc", desc: "AI-powered patient records with clinical knowledge base.", tag: "medical", tagLabel: "RECORDS", prompt: "\"Deploy a medical records system with AI insights\"", color: "#fb7185", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#fb7185">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="80" width="100" height="100" rx="8" fill="#fff1f2" stroke="#fecdd3" strokeWidth="1" />
           <text x="110" y="115" textAnchor="middle" fontSize="16">📄</text>
@@ -411,7 +414,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "NutriScan AI", desc: "Scan meals, track macros, get personalised nutrition coaching.", tag: "nutrition", tagLabel: "NUTRITION", prompt: "\"Build an AI nutrition app that scans food photos\"", color: "#4ade80", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#4ade80">
+        name: "NutriScan AI", i18nKey: "nutriScanDesc", desc: "Scan meals, track macros, get personalised nutrition coaching.", tag: "nutrition", tagLabel: "NUTRITION", prompt: "\"Build an AI nutrition app that scans food photos\"", color: "#4ade80", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#4ade80">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="70" y="70" width="80" height="120" rx="12" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="110" y="120" textAnchor="middle" fontSize="24">🥗</text>
@@ -427,7 +430,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "SymptomCheck", desc: "AI triage — describe symptoms, get guided next steps.", tag: "triage", tagLabel: "AI TRIAGE", prompt: "\"Create a symptom checker with AI triage\"", color: "#f97316", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#f97316">
+        name: "SymptomCheck", i18nKey: "symptomCheckDesc", desc: "AI triage — describe symptoms, get guided next steps.", tag: "triage", tagLabel: "AI TRIAGE", prompt: "\"Create a symptom checker with AI triage\"", color: "#f97316", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#f97316">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="200" height="36" rx="18" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="80" y="82" fontSize="9" fill="#64748b">"I've had a bad headache for 3 days..."</text>
@@ -445,7 +448,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "MedScheduler", desc: "Smart appointment booking with AI-optimised scheduling.", tag: "scheduler", tagLabel: "SCHEDULING", prompt: "\"Build smart clinic scheduling with AI optimisation\"", color: "#818cf8", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#818cf8">
+        name: "MedScheduler", i18nKey: "medSchedulerDesc", desc: "Smart appointment booking with AI-optimised scheduling.", tag: "scheduler", tagLabel: "SCHEDULING", prompt: "\"Build smart clinic scheduling with AI optimisation\"", color: "#818cf8", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#818cf8">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="70" width="90" height="110" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="105" y="90" textAnchor="middle" fontSize="7" fontWeight="600" fill="#64748b">Patient Request</text>
@@ -463,7 +466,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "RxTracker", desc: "Medication management with AI adherence coaching.", tag: "meds", tagLabel: "MEDICATION", prompt: "\"Build a medication tracker with adherence alerts\"", color: "#22d3ee", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#22d3ee">
+        name: "RxTracker", i18nKey: "rxTrackerDesc", desc: "Medication management with AI adherence coaching.", tag: "meds", tagLabel: "MEDICATION", prompt: "\"Build a medication tracker with adherence alerts\"", color: "#22d3ee", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#22d3ee">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="80" width="100" height="100" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <circle cx="110" cy="115" r="16" fill="#0ea5e9" opacity="0.1" />
@@ -483,7 +486,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "WellnessAI", desc: "Mental health check-ins, mood tracking, and AI journaling.", tag: "wellness", tagLabel: "WELLNESS", prompt: "\"Create a mental wellness app with mood tracking\"", color: "#c084fc", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#c084fc">
+        name: "WellnessAI", i18nKey: "wellnessAIDesc", desc: "Mental health check-ins, mood tracking, and AI journaling.", tag: "wellness", tagLabel: "WELLNESS", prompt: "\"Create a mental wellness app with mood tracking\"", color: "#c084fc", bgGrad: ["transparent", "transparent"], svg: <MiniSvg color="#c084fc">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="110" height="140" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="115" y="85" textAnchor="middle" fontSize="8" fontWeight="700" fill="#0f172a">Daily Log</text>
@@ -507,10 +510,10 @@ const BUSINESS_TABS: BusinessTab[] = [
   },
   {
     id: "yourbiz", label: "Startups", emoji: "🚀", logo: "", color: "#60a5fa",
-    subline: "Launch your next big app idea with autonomous AI infrastructure",
+    subline: "yourbizSubline",
     apps: [
       {
-        name: "2D RPG Studio", desc: "Build a complete 2D RPG with generated sprite assets, dynamic quests, and autonomous live-ops.", tag: "game", tagLabel: "GAME DEV", prompt: "\"Build an autonomous 2D pixel RPG game\"", color: "#60a5fa", bgGrad: ["transparent", "transparent"], services: ["Data Service: Quest Storage", "Workflow Engine: Event Scheduler", "LLM Service: NPC Dialogue"], svg: <MiniSvg color="#60a5fa">
+        name: "2D RPG Studio", i18nKey: "rpgStudioDesc", i18nPromptKey: "rpgStudioPrompt", desc: "Build a complete 2D RPG with generated sprite assets, dynamic quests, and autonomous live-ops.", tag: "game", tagLabel: "GAME DEV", prompt: "\"Build an autonomous 2D pixel RPG game\"", color: "#60a5fa", bgGrad: ["transparent", "transparent"], services: ["Data Service: Quest Storage", "Workflow Engine: Event Scheduler", "LLM Service: NPC Dialogue"], svg: <MiniSvg color="#60a5fa">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="100" height="120" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="110" y="100" textAnchor="middle" fontSize="24">👾</text>
@@ -529,7 +532,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "MatchMaker AI", desc: "A dating app powered by vector similarity matching, autonomous icebreakers, and behavioral analytics.", tag: "dating", tagLabel: "AI DATING", prompt: "\"Build an AI-first dating app that actually works\"", color: "#f472b6", bgGrad: ["transparent", "transparent"], services: ["Unified Tracking: Interaction Graphs", "Workflow Engine: Match Routing", "Knowledge Mgmt: User Vectors"], svg: <MiniSvg color="#f472b6">
+        name: "MatchMaker AI", i18nKey: "matchMakerDesc", i18nPromptKey: "matchMakerPrompt", desc: "A dating app powered by vector similarity matching, autonomous icebreakers, and behavioral analytics.", tag: "dating", tagLabel: "AI DATING", prompt: "\"Build an AI-first dating app that actually works\"", color: "#f472b6", bgGrad: ["transparent", "transparent"], services: ["Unified Tracking: Interaction Graphs", "Workflow Engine: Match Routing", "Knowledge Mgmt: User Vectors"], svg: <MiniSvg color="#f472b6">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="100" height="120" rx="12" fill="#fdf2f8" stroke="#fbcfe8" strokeWidth="1" />
           <text x="110" y="100" textAnchor="middle" fontSize="24">💖</text>
@@ -548,7 +551,7 @@ const BUSINESS_TABS: BusinessTab[] = [
         </MiniSvg>
       },
       {
-        name: "Alpha Quant", desc: "Personal hedge-fund AI — real-time portfolio tracking, sentiment analysis, and automated trade alerts.", tag: "finance", tagLabel: "INVESTMENT", prompt: "\"Build an autonomous investment tracking and analysis app\"", color: "#34d399", bgGrad: ["transparent", "transparent"], services: ["Data Service: Time-Series Market DB", "Workflow Engine: Alert Triggers", "LLM Service: Earnings Summaries"], svg: <MiniSvg color="#34d399">
+        name: "Alpha Quant", i18nKey: "alphaQuantDesc", i18nPromptKey: "alphaQuantPrompt", desc: "Personal hedge-fund AI — real-time portfolio tracking, sentiment analysis, and automated trade alerts.", tag: "finance", tagLabel: "INVESTMENT", prompt: "\"Build an autonomous investment tracking and analysis app\"", color: "#34d399", bgGrad: ["transparent", "transparent"], services: ["Data Service: Time-Series Market DB", "Workflow Engine: Alert Triggers", "LLM Service: Earnings Summaries"], svg: <MiniSvg color="#34d399">
           <rect x="40" y="40" width="320" height="220" rx="16" fill="#fff" stroke="#e2e8f0" strokeWidth="1" />
           <rect x="60" y="60" width="100" height="120" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1" />
           <text x="110" y="90" textAnchor="middle" fontSize="16">📈</text>
@@ -575,20 +578,23 @@ const BUSINESS_TABS: BusinessTab[] = [
 /* ══════════════════════════════════════════════════════
    CAPABILITY ITEMS
    ══════════════════════════════════════════════════════ */
-const CAPABILITIES: { Icon: React.ComponentType<any>; label: string; desc: string }[] = [
-  { Icon: Brain, label: "AI & LLM Services", desc: "50+ models, routing, chat, streaming, tools, memory" },
-  { Icon: Activity, label: "Unified Tracking", desc: "Events, sessions, per-user analytics" },
-  { Icon: Database, label: "Data Service", desc: "KV storage, user records, structured data" },
-  { Icon: Settings, label: "Workflow Engine", desc: "Visual flow builder, MCP, tool orchestration" },
-  { Icon: BookOpen, label: "Knowledge Mgmt", desc: "RAG, document search, vector retrieval" },
-  { Icon: FileText, label: "Document Parsing", desc: "PDF, URL, file processing & extraction" },
-  { Icon: Headphones, label: "Speech & VAD", desc: "TTS, STT, voice activity detection" },
-  { Icon: Monitor, label: "Game AI / 3D", desc: "Interactive content, asset gen, 3D engine" },
-  { Icon: Image, label: "Media Generation", desc: "Image, audio, video generation" },
-  { Icon: UserCheck, label: "User Management", desc: "Profiles, roles, org-level access" },
-  { Icon: Globe, label: "Social Feed", desc: "Posts, comments, real-time sharing" },
-  { Icon: Puzzle, label: "Advanced Features", desc: "Podcasts, mind maps, quizzes, co-edit" },
-];
+function useCapabilities() {
+  const { t } = useTranslation();
+  return [
+    { Icon: Brain,     label: t('cap.aiLabel'),       desc: t('cap.aiDesc') },
+    { Icon: Activity,  label: t('cap.trackLabel'),    desc: t('cap.trackDesc') },
+    { Icon: Database,  label: t('cap.dataLabel'),     desc: t('cap.dataDesc') },
+    { Icon: Settings,  label: t('cap.workflowLabel'), desc: t('cap.workflowDesc') },
+    { Icon: BookOpen,  label: t('cap.knowledgeLabel'),desc: t('cap.knowledgeDesc') },
+    { Icon: FileText,  label: t('cap.docsLabel'),     desc: t('cap.docsDesc') },
+    { Icon: Headphones,label: t('cap.speechLabel'),   desc: t('cap.speechDesc') },
+    { Icon: Monitor,   label: t('cap.gameLabel'),     desc: t('cap.gameDesc') },
+    { Icon: Image,     label: t('cap.mediaLabel'),    desc: t('cap.mediaDesc') },
+    { Icon: UserCheck, label: t('cap.usersLabel'),    desc: t('cap.usersDesc') },
+    { Icon: Globe,     label: t('cap.socialLabel'),   desc: t('cap.socialDesc') },
+    { Icon: Puzzle,    label: t('cap.advancedLabel'), desc: t('cap.advancedDesc') },
+  ];
+}
 
 /* ══════════════════════════════════════════════════════
    ANIMATED COST ROW (Stoabase card)
@@ -980,7 +986,7 @@ function CinematicAppDemo({ appName }: { appName: string }) {
       {/* Top bar: label + step dots */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 14px 6px", flexShrink: 0 }}>
         <div style={{ fontSize: "8.5px", fontWeight: 700, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.8px" }}>
-          Building with Stoabase
+          {i18n.t('buildingWith')}
         </div>
         <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
           {steps.map((s, i) => (
@@ -1041,9 +1047,18 @@ function CinematicAppDemo({ appName }: { appName: string }) {
 // ScrollSpyMockDemo removed
 
 function AutonomousScrollSpy() {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const bizData = BUSINESS_TABS.find(t => t.id === "yourbiz");
+  const rawBizData = BUSINESS_TABS.find(tab => tab.id === "yourbiz");
+  const bizData = rawBizData ? {
+    ...rawBizData,
+    apps: rawBizData.apps.map(app => ({
+      ...app,
+      desc: (app as any).i18nKey ? t(`tabs.${(app as any).i18nKey}`) : app.desc,
+      prompt: (app as any).i18nPromptKey ? t(`tabs.${(app as any).i18nPromptKey}`) : app.prompt,
+    })),
+  } : null;
 
   const handleScroll = useCallback(() => {
     const items = document.querySelectorAll('.stoa-scrollspy-item');
@@ -1143,7 +1158,51 @@ function AutonomousScrollSpy() {
 /* ══════════════════════════════════════════════════════
    MAIN PAGE COMPONENT
    ══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   LANGUAGE SWITCHER
+   ══════════════════════════════════════════════════════ */
+function LangSwitcher() {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const current = i18n.language as SupportedLang;
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '13px', fontWeight: 600, color: '#475569', background: 'none', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '5px 10px', cursor: 'pointer' }}
+        aria-label="Switch language"
+      >
+        <Languages size={14} />
+        {t(`langLabel.${current}`)}
+      </button>
+      {open && (
+        <div style={{ position: 'absolute', right: 0, top: '110%', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 8px 24px rgba(0,0,0,0.1)', zIndex: 999, minWidth: '140px', overflow: 'hidden' }}>
+          {SUPPORTED_LANGS.map(lng => (
+            <button
+              key={lng}
+              onClick={() => { i18n.changeLanguage(lng); setOpen(false); }}
+              style={{ display: 'block', width: '100%', textAlign: 'left', padding: '9px 14px', fontSize: '13px', fontWeight: lng === current ? 700 : 400, color: lng === current ? '#7c3aed' : '#334155', background: lng === current ? '#f5f3ff' : 'transparent', border: 'none', cursor: 'pointer' }}
+            >
+              {t(`langLabel.${lng}`)}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function StoaOnePager() {
+  const { t } = useTranslation();
+  const capabilities = useCapabilities();
   const [activeTab, setActiveTab] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const scrollTo = useCallback((id: string) => {
@@ -1151,8 +1210,16 @@ export default function StoaOnePager() {
     setMobileMenuOpen(false);
   }, []);
 
-  const mainBizTabs = BUSINESS_TABS.filter(t => t.id !== "yourbiz");
-  const currentBiz = mainBizTabs[activeTab];
+  const mainBizTabs = BUSINESS_TABS
+    .filter(tab => tab.id !== "yourbiz")
+    .map(tab => ({ ...tab, subline: t(`tabs.${tab.subline}`) }));
+  const currentBiz = {
+    ...mainBizTabs[activeTab],
+    apps: BUSINESS_TABS.find(tb => tb.id === mainBizTabs[activeTab].id)!.apps.map(app => ({
+      ...app,
+      desc: (app as any).i18nKey ? t(`tabs.${(app as any).i18nKey}`) : app.desc,
+    })),
+  };
 
   return (
     <div className="stoa-page">
@@ -1185,24 +1252,28 @@ export default function StoaOnePager() {
           </a>
           {/* Desktop links */}
           <div className="stoa-nav-links">
-            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cost"); }}>0 to 100</a>
-            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("how"); }}>How it works</a>
-            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("apps"); }}>Apps</a>
-            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("platform"); }}>Platform</a>
-            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cta"); }}>Contact</a>
+            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cost"); }}>{t('nav.zeroToHundred')}</a>
+            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("how"); }}>{t('nav.howItWorks')}</a>
+            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("apps"); }}>{t('nav.apps')}</a>
+            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("platform"); }}>{t('nav.platform')}</a>
+            <a className="stoa-nav-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cta"); }}>{t('nav.contact')}</a>
+            <LangSwitcher />
           </div>
-          {/* Mobile hamburger */}
-          <button className="stoa-nav-hamburger" onClick={() => setMobileMenuOpen(o => !o)} aria-label="Menu">
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* Mobile: lang switcher + hamburger */}
+          <div className="stoa-nav-mobile-actions">
+            <LangSwitcher />
+            <button className="stoa-nav-hamburger" onClick={() => setMobileMenuOpen(o => !o)} aria-label="Menu">
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
         {/* Mobile dropdown — always mounted, shown via CSS */}
         <div className={`stoa-nav-mobile-menu${mobileMenuOpen ? ' open' : ''}`}>
-          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cost"); }}>0 to 100</a>
-          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("how"); }}>How it works</a>
-          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("apps"); }}>Apps</a>
-          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("platform"); }}>Platform</a>
-          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cta"); }}>Contact</a>
+          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cost"); }}>{t('nav.zeroToHundred')}</a>
+          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("how"); }}>{t('nav.howItWorks')}</a>
+          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("apps"); }}>{t('nav.apps')}</a>
+          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("platform"); }}>{t('nav.platform')}</a>
+          <a className="stoa-nav-mobile-link" href="#" onClick={e => { e.preventDefault(); scrollTo("cta"); }}>{t('nav.contact')}</a>
         </div>
       </nav>
 
@@ -1212,23 +1283,19 @@ export default function StoaOnePager() {
       <section className="stoa-hero" id="hero">
         <Reveal>
           <div className="stoa-hero-tag">
-            <Sparkles size={14} /> PROMPT TO GROW
+            <Sparkles size={14} /> {t('hero.tag')}
           </div>
         </Reveal>
 
         <Reveal delay={1}>
           <h1>
-            Build and Scale your <span className="accent">Business</span>.<br />
-            By prompt.
+            {t('hero.headline1')} <span className="accent">{t('hero.headline2')}</span>.<br />
+            {t('hero.headline3')}
           </h1>
         </Reveal>
 
         <Reveal delay={2}>
-          <p className="stoa-hero-sub">
-            Not just one app — an entire automated business from a prompt.
-            Storefront, accounting, support, operations — every layer of your company
-            built by AI, running together, sharing context.
-          </p>
+          <p className="stoa-hero-sub">{t('hero.sub')}</p>
         </Reveal>
 
         <Reveal delay={3}>
@@ -1239,21 +1306,21 @@ export default function StoaOnePager() {
           <div className="stoa-hero-cta">
             <div className="stoa-tooltip-wrap">
               <a href="#" className="stoa-btn-primary" onClick={e => e.preventDefault()} style={{ pointerEvents: 'none', opacity: 0.85 }}>
-                Join Waitlist <ArrowRight size={16} />
+                {t('hero.joinWaitlist')} <ArrowRight size={16} />
               </a>
-              <span className="stoa-tooltip">Coming soon</span>
+              <span className="stoa-tooltip">{t('hero.comingSoon')}</span>
             </div>
             <a href="mailto:hello@stoabase.ai" className="stoa-btn-secondary">
-              Get in Touch
+              {t('hero.getInTouch')}
             </a>
           </div>
         </Reveal>
 
         <Reveal delay={5}>
           <div className="stoa-badge-row">
-            <span className="stoa-badge"><Shield size={12} /> No Code Required</span>
-            <span className="stoa-badge"><Zap size={12} /> 12+ AI Modules</span>
-            <span className="stoa-badge"><BarChart3 size={12} /> Production-Proven</span>
+            <span className="stoa-badge"><Shield size={12} /> {t('hero.badge.noCode')}</span>
+            <span className="stoa-badge"><Zap size={12} /> {t('hero.badge.modules')}</span>
+            <span className="stoa-badge"><BarChart3 size={12} /> {t('hero.badge.proven')}</span>
           </div>
         </Reveal>
       </section>
@@ -1269,12 +1336,8 @@ export default function StoaOnePager() {
         <section className="stoa-section stoa-cost-section" id="cost">
           <Reveal>
             <div className="stoa-showcase-heading">
-              <h2>Test & launch at<br /><span className="accent">10% the cost</span>.</h2>
-              <p>
-                Stop burning runway on dev teams and infrastructure.
-                Stoabase lets you test, iterate, and launch a real AI-native business
-                at a fraction of the traditional cost.
-              </p>
+              <h2>{t('cost.heading')}<br /><span className="accent">{t('cost.headingAccent')}</span></h2>
+              <p>{t('cost.sub')}</p>
             </div>
           </Reveal>
 
@@ -1283,7 +1346,7 @@ export default function StoaOnePager() {
             <Reveal delay={1}>
               <div className="stoa-cost-hero-num">
                 <span className="stoa-cost-big"><CountUp end={10} start={99} suffix="%" duration={1800} /></span>
-                <span className="stoa-cost-of">of the effort.<br />of the budget.<br />of the time.</span>
+                <span className="stoa-cost-of">{t('cost.ofThe').split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</span>
               </div>
             </Reveal>
 
@@ -1291,15 +1354,15 @@ export default function StoaOnePager() {
             <Reveal delay={2}>
               <div className="stoa-cost-compare">
                 <div className="stoa-cost-card stoa-cost-old">
-                  <div className="stoa-cost-card-header">Traditional</div>
+                  <div className="stoa-cost-card-header">{t('cost.traditional')}</div>
                   {[
-                    { label: "Budget", value: "$500K+", pct: 100 },
-                    { label: "Timeline", value: "6–12 months", pct: 100 },
-                    { label: "Team", value: "12+ people", pct: 100 },
-                    { label: "Infra", value: "Build everything", pct: 100 },
+                    { labelKey: "cost.budget", value: "$500K+", pct: 100 },
+                    { labelKey: "cost.timeline", value: "6–12 months", pct: 100 },
+                    { labelKey: "cost.team", value: "12+ people", pct: 100 },
+                    { labelKey: "cost.infra", value: t('cost.buildEverything'), pct: 100 },
                   ].map(r => (
-                    <div key={r.label} className="stoa-cost-row">
-                      <span className="stoa-cost-label">{r.label}</span>
+                    <div key={r.labelKey} className="stoa-cost-row">
+                      <span className="stoa-cost-label">{t(r.labelKey)}</span>
                       <div className="stoa-cost-bar-track">
                         <div className="stoa-cost-bar stoa-cost-bar-old" style={{ width: `${r.pct}%` }} />
                       </div>
@@ -1314,10 +1377,10 @@ export default function StoaOnePager() {
                   </div>
                   {(() => {
                     const rows = [
-                      { label: "Budget", value: "$50K", pct: 10 },
-                      { label: "Timeline", value: "1 day", pct: 8 },
-                      { label: "Team", value: "1 person + AI", pct: 10 },
-                      { label: "Infra", value: "Included", pct: 5 },
+                      { label: t('cost.budget'), value: "$50K", pct: 10 },
+                      { label: t('cost.timeline'), value: "1 day", pct: 8 },
+                      { label: t('cost.team'), value: t('cost.onePersonAI'), pct: 10 },
+                      { label: t('cost.infra'), value: t('cost.included'), pct: 5 },
                     ];
                     return rows.map((r, idx) => <AnimatedCostRow key={r.label} label={r.label} value={r.value} pct={r.pct} delay={2000 + idx * 150} />);
                   })()}
@@ -1328,8 +1391,8 @@ export default function StoaOnePager() {
 
           <Reveal delay={3}>
             <p className="stoa-cost-bottom">
-              Same product. Same users. Same AI intelligence.<br />
-              <strong style={{ color: "var(--slate-100)" }}>Just 10× cheaper to prove it works.</strong>
+              {t('cost.bottomLine')}<br />
+              <strong style={{ color: "var(--slate-100)" }}>{t('cost.bottomLineStrong')}</strong>
             </p>
           </Reveal>
         </section>
@@ -1342,20 +1405,17 @@ export default function StoaOnePager() {
         <section className="stoa-section stoa-scale-section" id="scale">
           <Reveal>
             <div className="stoa-showcase-heading">
-              <h2>Scale 1 to 100.<br /><span className="accent">From prototype to unicorn.</span></h2>
-              <p>
-                Start with one AI app. Prove it works. Then scale to an entire product suite
-                — all sharing users, data, and intelligence. That's how you build a billion-dollar business.
-              </p>
+              <h2>{t('scale.heading')}<br /><span className="accent">{t('scale.headingAccent')}</span></h2>
+              <p>{t('scale.sub')}</p>
             </div>
           </Reveal>
 
           <div className="stoa-scale-timeline">
             {[
-              { phase: "Launch", apps: "1 app", rev: "$0 → $10K MRR", icon: "🚀", color: "#a78bfa", desc: "Validate your idea in weeks, not months" },
-              { phase: "Product-Market Fit", apps: "3 apps", rev: "$50K MRR", icon: "📈", color: "#60a5fa", desc: "Expand with complementary AI products" },
-              { phase: "Growth Engine", apps: "10 apps", rev: "$500K MRR", icon: "⚡", color: "#4ade80", desc: "Full AI-native business suite running autonomously" },
-              { phase: "Unicorn", apps: "∞ apps", rev: "$1B+ valuation", icon: "🦄", color: "#f472b6", desc: "Platform effects compound. Every app makes every other app better." },
+              { phase: t('scale.launch.phase'), apps: "1 app", rev: "$0 → $10K MRR", icon: "🚀", color: "#a78bfa", desc: t('scale.launch.desc') },
+              { phase: t('scale.pmf.phase'), apps: "3 apps", rev: "$50K MRR", icon: "📈", color: "#60a5fa", desc: t('scale.pmf.desc') },
+              { phase: t('scale.growth.phase'), apps: "10 apps", rev: "$500K MRR", icon: "⚡", color: "#4ade80", desc: t('scale.growth.desc') },
+              { phase: t('scale.unicorn.phase'), apps: "∞ apps", rev: "$1B+ valuation", icon: "🦄", color: "#f472b6", desc: t('scale.unicorn.desc') },
             ].map((step, i) => (
               <Reveal key={step.phase} delay={Math.min(i + 1, 4) as 1 | 2 | 3 | 4}>
                 <div className="stoa-scale-card" style={{ "--sc-color": step.color } as React.CSSProperties}>
@@ -1376,10 +1436,10 @@ export default function StoaOnePager() {
                 <div className="stoa-scale-bar-fill" />
               </div>
               <div className="stoa-scale-bar-labels">
-                <span>Week 1</span>
-                <span>Month 3</span>
-                <span>Year 1</span>
-                <span>Year 3</span>
+                <span>{t('scale.week1')}</span>
+                <span>{t('scale.month3')}</span>
+                <span>{t('scale.year1')}</span>
+                <span>{t('scale.year3')}</span>
               </div>
             </div>
           </Reveal>
@@ -1396,8 +1456,8 @@ export default function StoaOnePager() {
       <section className="stoa-section" id="how">
         <Reveal>
           <div className="stoa-showcase-heading">
-            <h2>From idea to production<br />in one prompt.</h2>
-            <p>No infrastructure. No dev team. Just describe what you need.</p>
+            <h2>{t('how.heading')}<br />{t('how.headingLine2')}</h2>
+            <p>{t('how.sub')}</p>
           </div>
         </Reveal>
 
@@ -1405,8 +1465,8 @@ export default function StoaOnePager() {
           <Reveal delay={1}>
             <div className="stoa-step">
               <div className="stoa-step-num">1</div>
-              <h3>Describe your app</h3>
-              <p>Type a prompt. "Build me an AI nutrition tracker with meal scanning." That's it — plain English.</p>
+              <h3>{t('how.step1Title')}</h3>
+              <p>{t('how.step1Desc')}</p>
               <svg viewBox="0 0 200 80" fill="none" style={{ marginTop: 16, width: "100%" }}>
                 {/* Input box */}
                 <rect x="8" y="16" width="184" height="48" rx="12" fill="#fff" stroke="#7c3aed" strokeWidth="1.5" />
@@ -1430,8 +1490,8 @@ export default function StoaOnePager() {
           <Reveal delay={2}>
             <div className="stoa-step">
               <div className="stoa-step-num">2</div>
-              <h3>AI builds your stack</h3>
-              <p>Stoabase wires up the right AI models, data layer, knowledge base, user roles, and analytics — automatically.</p>
+              <h3>{t('how.step2Title')}</h3>
+              <p>{t('how.step2Desc')}</p>
               <svg viewBox="0 0 200 100" fill="none" style={{ marginTop: 16, width: "100%" }}>
                 {/* Service tiles */}
                 {(["LLM", "RAG", "Auth", "Data"] as const).map((l, i) => {
@@ -1464,8 +1524,8 @@ export default function StoaOnePager() {
           <Reveal delay={3}>
             <div className="stoa-step">
               <div className="stoa-step-num">3</div>
-              <h3>Deploy &amp; grow</h3>
-              <p>Your app is live. Add more apps to your workspace — they all share context, users, and AI capabilities.</p>
+              <h3>{t('how.step3Title')}</h3>
+              <p>{t('how.step3Desc')}</p>
               <svg viewBox="0 0 200 100" fill="none" style={{ marginTop: 16, width: "100%" }}>
                 {/* Card background */}
                 <rect x="20" y="4" width="160" height="88" rx="14" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5" />
@@ -1503,8 +1563,8 @@ export default function StoaOnePager() {
       <section className="stoa-section">
         <Reveal>
           <div className="stoa-showcase-heading">
-            <h2>Already in production.</h2>
-            <p>Education proved the platform. Healthcare confirmed it scales.</p>
+            <h2>{t('traction.heading')}</h2>
+            <p>{t('traction.sub')}</p>
           </div>
         </Reveal>
 
@@ -1580,11 +1640,8 @@ export default function StoaOnePager() {
         {/* ── Company showcase heading above ScrollSpy ── */}
         <Reveal>
           <div className="stoa-showcase-heading" style={{ marginTop: 64, marginBottom: 16 }}>
-            <h2>Everything you need to run<br />an autonomous company.</h2>
-            <p>
-              One platform. Multiple businesses. Each with a full suite of AI apps
-              — all sharing context, users, and intelligence.
-            </p>
+            <h2>{t('autonomous.heading')}<br />{t('autonomous.headingLine2')}</h2>
+            <p>{t('autonomous.sub')}</p>
           </div>
         </Reveal>
 
@@ -1601,13 +1658,13 @@ export default function StoaOnePager() {
       <section className="stoa-section" id="platform">
         <Reveal>
           <div className="stoa-showcase-heading">
-            <h2>Everything you need to run<br />an AI-native business.</h2>
-            <p>12+ integrated services. One platform. Zero vendor sprawl.</p>
+            <h2>{t('platform.heading')}<br />{t('platform.headingLine2')}</h2>
+            <p>{t('platform.sub')}</p>
           </div>
         </Reveal>
 
         <div className="stoa-cap-grid">
-          {CAPABILITIES.map((cap, i) => (
+          {capabilities.map((cap, i) => (
             <Reveal key={cap.label} delay={Math.min(Math.floor(i / 4) + 1, 3) as 1 | 2 | 3}>
               <div className="stoa-cap-card">
                 <div className="stoa-cap-icon"><cap.Icon size={18} /></div>
@@ -1631,18 +1688,18 @@ export default function StoaOnePager() {
           </div>
         </Reveal>
         <Reveal delay={1}>
-          <h2>The foundation for<br />what you build next.</h2>
+          <h2>{t('cta.heading')}<br />{t('cta.headingLine2')}</h2>
         </Reveal>
         <Reveal delay={2}>
-          <p>One platform. Full AI stack. No Code.</p>
+          <p>{t('cta.sub')}</p>
         </Reveal>
         <Reveal delay={3}>
           <div className="stoa-hero-cta">
             <div className="stoa-tooltip-wrap">
               <a href="#" className="stoa-btn-primary" onClick={e => e.preventDefault()} style={{ pointerEvents: 'none', opacity: 0.85 }}>
-                Join Waitlist <ArrowRight size={16} />
+                {t('hero.joinWaitlist')} <ArrowRight size={16} />
               </a>
-              <span className="stoa-tooltip">Coming soon</span>
+              <span className="stoa-tooltip">{t('hero.comingSoon')}</span>
             </div>
             <a href="mailto:hello@stoabase.ai" className="stoa-btn-secondary">
               hello@stoabase.ai

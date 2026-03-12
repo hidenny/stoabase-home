@@ -1,0 +1,89 @@
+{
+  "nav": { "zeroToHundred": "0에서 100으로", "howItWorks": "작동 방식", "apps": "앱", "platform": "플랫폼", "contact": "문의하기" },
+  "hero": {
+    "tag": "하나의 프롬프트. 무한한 가능성.",
+    "headline1": "당신의 비즈니스를", "headline2": "비즈니스", "headline3": "프롬프트 하나로. 완성.",
+    "sub": "앱 하나가 아닙니다. 프롬프트 하나로 비즈니스 전체가 움직입니다. 스토어, 회계, 고객 지원, 운영——모두 AI가 처리합니다.",
+    "joinWaitlist": "지금 등록하기", "getInTouch": "문의하기", "comingSoon": "곧 출시",
+    "badge": { "noCode": "코딩 불필요", "modules": "12+ AI 모듈", "proven": "검증된 성능" }
+  },
+  "prompts": [
+    "식사를 스캔하고 영양소를 추적하는 AI 영양 앱을 만들어줘",
+    "AI 지출 자동 분류 기능이 있는 회계 대시보드를 만들어줘",
+    "적응형 퀴즈와 분석 기능이 있는 AI 학습 플랫폼을 출시해줘",
+    "AI 환자 인사이트가 있는 의료 기록 시스템을 배포해줘",
+    "AI로 에피소드와 쇼 노트를 자동 생성하는 팟캐스트 스튜디오를 만들어줘",
+    "지식 검색과 음성 기능이 있는 고객 지원 Copilot을 만들어줘"
+  ],
+  "cost": {
+    "heading": "비용을", "headingAccent": "10분의 1로. 출시.",
+    "sub": "개발팀과 인프라에 비용을 낭비하지 마세요. StoaBase로 극소 예산으로 테스트하고, 수정하고, AI 네이티브 비즈니스를 출시하세요.",
+    "ofThe": "노력도 10분의 1.\n예산도 10분의 1.\n시간도 10분의 1.",
+    "traditional": "전통 방식", "budget": "예산", "timeline": "기간", "team": "팀", "infra": "인프라",
+    "buildEverything": "전부 직접 구축", "onePersonAI": "1인 + AI", "included": "포함",
+    "bottomLine": "같은 제품. 같은 사용자. 같은 AI 지능.", "bottomLineStrong": "비용만 10배 다릅니다."
+  },
+  "scale": {
+    "heading": "1에서 100으로.", "headingAccent": "프로토타입에서 유니콘으로.",
+    "sub": "AI 앱 하나로 시작하세요. 검증하세요. 그리고 완전한 제품 라인으로 확장하세요——사용자, 데이터, 지능을 모두 공유하면서.",
+    "launch": { "phase": "출시", "desc": "몇 달이 아닌 몇 주 안에 아이디어 검증" },
+    "pmf": { "phase": "시장 적합성 확보", "desc": "보완적인 AI 제품으로 비즈니스 확대" },
+    "growth": { "phase": "성장 엔진", "desc": "AI 네이티브 비즈니스 전체가 자율 운영" },
+    "unicorn": { "phase": "유니콘", "desc": "플랫폼 효과가 복리로 성장합니다. 각 앱이 다른 앱을 더 강하게 만듭니다." },
+    "week1": "1주차", "month3": "3개월차", "year1": "1년차", "year3": "3년차"
+  },
+  "how": {
+    "heading": "아이디어에서 출시까지,", "headingLine2": "프롬프트 하나.",
+    "sub": "인프라 불필요. 개발팀 불필요. 원하는 걸 말하면 됩니다.",
+    "step1Title": "앱을 말로 표현하세요", "step1Desc": "프롬프트를 입력하세요. \"식사 스캔 기능이 있는 AI 영양 추적기 만들어줘.\" 그게 전부입니다.",
+    "step2Title": "AI가 모든 걸 구축합니다", "step2Desc": "StoaBase가 적합한 AI 모델, 데이터 레이어, 지식 베이스, 사용자 역할, 분석을 자동 연결합니다.",
+    "step3Title": "출시하고, 성장하세요", "step3Desc": "앱이 즉시 출시됩니다. 앱을 추가할수록 모든 것이 컨텍스트, 사용자, AI 기능을 공유합니다."
+  },
+  "traction": {
+    "heading": "이미 실전에서 운영 중.", "sub": "교육 분야에서 검증. 의료 분야에서 확장성 확인.",
+    "tokens": "처리된 토큰", "models": "AI 모델", "agents": "활성 에이전트", "users": "사용자 기록"
+  },
+  "buildingWith": "StoaBase로 구축 중",
+  "quote": "\"하나의 비즈니스. 여러 앱. 모든 앱이 사용자, 지식, 메모리, 분석을 공유합니다——그것이 AI 네이티브 기업입니다.\"",
+  "autonomous": { "heading": "자율 기업 운영에 필요한", "headingLine2": "모든 것이 여기 있습니다.", "sub": "하나의 플랫폼. 비즈니스를 위한 AI 앱 전체 스위트——컨텍스트, 사용자, 지능을 모두 공유합니다." },
+  "platform": { "heading": "당신이 만드는 모든 것을 위한", "headingLine2": "AI 기반 레이어.", "sub": "12개 이상의 핵심 서비스. 하나의 플랫폼. 벤더 종속 없음." },
+  "cta": { "heading": "다음에 만들 것을,", "headingLine2": "여기서 시작하세요.", "sub": "하나의 플랫폼. 완전한 AI 스택. 코딩 불필요." },
+  "cap": {
+    "aiLabel": "AI & LLM 서비스", "aiDesc": "50+ 모델, 라우팅, 채팅, 스트리밍, 도구, 메모리",
+    "trackLabel": "통합 추적", "trackDesc": "이벤트, 세션, 사용자별 분석",
+    "dataLabel": "데이터 서비스", "dataDesc": "KV 스토리지, 사용자 기록, 구조화 데이터",
+    "workflowLabel": "워크플로우 엔진", "workflowDesc": "비주얼 플로우 빌더, MCP, 도구 오케스트레이션",
+    "knowledgeLabel": "지식 관리", "knowledgeDesc": "RAG, 문서 검색, 벡터 검색",
+    "docsLabel": "문서 파싱", "docsDesc": "PDF, URL, 파일 처리 및 추출",
+    "speechLabel": "음성 & VAD", "speechDesc": "TTS, STT, 음성 활동 감지",
+    "gameLabel": "게임 AI / 3D", "gameDesc": "인터랙티브 콘텐츠, 에셋 생성, 3D 엔진",
+    "mediaLabel": "미디어 생성", "mediaDesc": "이미지, 오디오, 비디오 생성",
+    "usersLabel": "사용자 관리", "usersDesc": "프로필, 역할, 조직 수준 액세스",
+    "socialLabel": "소셜 피드", "socialDesc": "게시물, 댓글, 실시간 공유",
+    "advancedLabel": "고급 기능", "advancedDesc": "팟캐스트, 마인드맵, 퀴즈, 공동 편집"
+  },
+  "tabs": {
+    "rodysseySubline": "AI 스마트 캠퍼스——교실에서 가정까지",
+    "iomicsSubline": "개인 의료 & 임상 AI——바이탈에서 인사이트까지",
+    "yourbizSubline": "자율 AI 인프라로 다음 대형 앱을 출시하세요",
+    "roAgentDesc": "개인 AI 학습 컴패니언——수업 전, 중, 후를 지식으로 채워줍니다.",
+    "realmDesc": "프라이빗 NotebookLM——어떤 콘텐츠든 지식, 오디오, 인터랙티브 학습으로 변환합니다.",
+    "aiLessonDesc": "교재에서 인터랙티브 수업과 퀴즈를 자동 생성합니다.",
+    "magicCardDesc": "AR 플래시카드——인쇄 카드를 스캔해 3D 학습을 경험하세요.",
+    "classAnalyticsDesc": "교사를 위한 학생별 및 학급 전체 AI 인사이트.",
+    "aiWorksheetDesc": "쉐도우 티처 지원이 있는 인터랙티브 AI 학습지.",
+    "mediVaultDesc": "임상 지식 베이스가 있는 AI 환자 기록 시스템.",
+    "nutriScanDesc": "식사를 스캔하고 영양소를 추적해 개인화된 식단 조언을 받으세요.",
+    "symptomCheckDesc": "AI 트리아지——증상을 말하고 가이드된 다음 단계를 받으세요.",
+    "medSchedulerDesc": "AI 최적화 스케줄링이 있는 스마트 예약 시스템.",
+    "rxTrackerDesc": "AI 복약 준수 코칭이 있는 약물 관리.",
+    "wellnessAIDesc": "정신 건강 체크인, 기분 추적, AI 저널링.",
+    "rpgStudioDesc": "에셋 자동 생성, 다이나믹 퀘스트, 자율 라이브옵스를 갖춘 완전한 2D RPG를 구축하세요.",
+    "matchMakerDesc": "벡터 유사성 매칭, 자율 아이스브레이커, 행동 분석으로 작동하는 데이팅 앱.",
+    "alphaQuantDesc": "개인 헤지펀드 AI——실시간 포트폴리오 추적, 감정 분석, 자동 거래 알림.",
+    "rpgStudioPrompt": "\"자율 운영 2D 픽셀 RPG 게임을 만들어줘\"",
+    "matchMakerPrompt": "\"실제로 작동하는 AI 데이팅 앱을 만들어줘\"",
+    "alphaQuantPrompt": "\"자율 투자 추적 및 분석 앱을 만들어줘\""
+  },
+  "langLabel": { "en": "English", "zh-HK": "繁中（港）", "zh-TW": "繁中（台）", "zh-CN": "简中", "ja": "日本語", "ko": "한국어" }
+}

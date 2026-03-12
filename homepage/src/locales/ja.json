@@ -1,0 +1,89 @@
+{
+  "nav": { "zeroToHundred": "0から100へ", "howItWorks": "仕組み", "apps": "アプリ", "platform": "プラットフォーム", "contact": "お問い合わせ" },
+  "hero": {
+    "tag": "ひとつのプロンプト。可能性は、無限大。",
+    "headline1": "あなたのビジネスを", "headline2": "ビジネス", "headline3": "プロンプトひとつで、実現。",
+    "sub": "アプリひとつじゃない。プロンプトひとつで、企業まるごとが動き出す。店舗、経理、サポート、オペレーション——全部、AIが担う。",
+    "joinWaitlist": "今すぐ登録", "getInTouch": "お問い合わせ", "comingSoon": "近日公開",
+    "badge": { "noCode": "コード不要", "modules": "12+ AI モジュール", "proven": "本番実績あり" }
+  },
+  "prompts": [
+    "食事をスキャンして栄養素を追跡するAI栄養アプリを作って",
+    "AI経費自動分類付きの会計ダッシュボードを作って",
+    "適応型クイズと分析機能付きのAI学習プラットフォームを立ち上げて",
+    "AI患者インサイト付きの医療記録システムをデプロイして",
+    "AIでエピソードとノートを自動生成するPodcastスタジオを作って",
+    "ナレッジ検索と音声機能付きのカスタマーサポートCopilotを作って"
+  ],
+  "cost": {
+    "heading": "コストを", "headingAccent": "10分の1に。",
+    "sub": "開発チームや基盤整備に費用をかけるのは、もう終わり。StoaBase なら、わずかな予算で、リアルなAIネイティブビジネスをテスト・改善・ローンチできる。",
+    "ofThe": "労力も、10分の1。\n予算も、10分の1。\n時間も、10分の1。",
+    "traditional": "従来型", "budget": "予算", "timeline": "期間", "team": "チーム", "infra": "インフラ",
+    "buildEverything": "すべて自社構築", "onePersonAI": "1人 + AI", "included": "込み",
+    "bottomLine": "同じ製品。同じユーザー。同じAI知能。", "bottomLineStrong": "コストが10倍違う。"
+  },
+  "scale": {
+    "heading": "1から100へ。", "headingAccent": "プロトタイプから、ユニコーンへ。",
+    "sub": "まず1つのAIアプリから始める。実証する。そして完全な製品スイートへ拡張する——ユーザー、データ、知能をすべて共有しながら。",
+    "launch": { "phase": "ローンチ", "desc": "数か月ではなく、数週間でアイデアを実証" },
+    "pmf": { "phase": "PMF達成", "desc": "補完的なAI製品でビジネスを拡大" },
+    "growth": { "phase": "グロースエンジン", "desc": "AIネイティブビジネス全体が自律稼働" },
+    "unicorn": { "phase": "ユニコーン", "desc": "プラットフォーム効果が複利で成長。各アプリが他をより強くする。" },
+    "week1": "1週目", "month3": "3か月目", "year1": "1年目", "year3": "3年目"
+  },
+  "how": {
+    "heading": "アイデアから本番まで、", "headingLine2": "プロンプトひとつ。",
+    "sub": "インフラ不要。開発チーム不要。必要なことを言うだけ。",
+    "step1Title": "アプリを言葉にする", "step1Desc": "プロンプトを打つだけ。「食事スキャン付きのAI栄養トラッカーを作って。」それだけ。",
+    "step2Title": "AIがすべて組み立てる", "step2Desc": "StoaBase が適切なAIモデル・データ層・ナレッジベース・ユーザーロール・分析を自動で接続する。",
+    "step3Title": "公開して、成長する", "step3Desc": "アプリが即座に本番稼働。ワークスペースにアプリを追加するたび、すべてがコンテキスト・ユーザー・AI機能を共有する。"
+  },
+  "traction": {
+    "heading": "すでに本番稼働中。", "sub": "教育分野で実証。医療分野でスケールを確認。",
+    "tokens": "処理済みトークン", "models": "AIモデル", "agents": "稼働中エージェント", "users": "ユーザー記録"
+  },
+  "buildingWith": "StoaBaseで構築中",
+  "quote": "「ひとつのビジネス。複数のアプリ。すべてのアプリがユーザー・ナレッジ・メモリ・分析を共有する——それがAIネイティブ企業だ。」",
+  "autonomous": { "heading": "自律型企業に必要なもの、", "headingLine2": "すべて揃っている。", "sub": "ひとつのプラットフォーム。ビジネスのためのAIアプリを一式構築——コンテキスト・ユーザー・知能をすべて共有。" },
+  "platform": { "heading": "あなたが作るすべてのための", "headingLine2": "AIベースレイヤー。", "sub": "12以上のコアサービス。ひとつのプラットフォーム。ベンダー依存、ゼロ。" },
+  "cta": { "heading": "次に作るものを、", "headingLine2": "ここから始めよう。", "sub": "ひとつのプラットフォーム。完全なAIスタック。コード不要。" },
+  "cap": {
+    "aiLabel": "AI & LLM サービス", "aiDesc": "50+ モデル、ルーティング、チャット、ストリーミング、ツール、メモリ",
+    "trackLabel": "統合トラッキング", "trackDesc": "イベント、セッション、ユーザー別分析",
+    "dataLabel": "データサービス", "dataDesc": "KVストレージ、ユーザー記録、構造化データ",
+    "workflowLabel": "ワークフローエンジン", "workflowDesc": "ビジュアルフロービルダー、MCP、ツールオーケストレーション",
+    "knowledgeLabel": "ナレッジ管理", "knowledgeDesc": "RAG、ドキュメント検索、ベクトル検索",
+    "docsLabel": "ドキュメント解析", "docsDesc": "PDF・URL・ファイル処理と抽出",
+    "speechLabel": "スピーチ & VAD", "speechDesc": "TTS、STT、音声活動検出",
+    "gameLabel": "ゲームAI / 3D", "gameDesc": "インタラクティブコンテンツ、アセット生成、3Dエンジン",
+    "mediaLabel": "メディア生成", "mediaDesc": "画像・音声・動画生成",
+    "usersLabel": "ユーザー管理", "usersDesc": "プロフィール、ロール、組織レベルのアクセス",
+    "socialLabel": "ソーシャルフィード", "socialDesc": "投稿、コメント、リアルタイム共有",
+    "advancedLabel": "高度な機能", "advancedDesc": "ポッドキャスト、マインドマップ、クイズ、共同編集"
+  },
+  "tabs": {
+    "rodysseySubline": "AIスマートキャンパス——教室から家庭まで",
+    "iomicsSubline": "パーソナル医療 & 臨床AI——バイタルからインサイトまで",
+    "yourbizSubline": "自律型AI基盤で、次の大きなアプリをローンチ",
+    "roAgentDesc": "個人AI学習コンパニオン——授業の前・中・後を、知識でサポート。",
+    "realmDesc": "プライベートNotebookLM——あらゆるコンテンツをナレッジ・音声・インタラクティブ学習へ。",
+    "aiLessonDesc": "教材からインタラクティブなレッスンとクイズを自動生成。",
+    "magicCardDesc": "ARフラッシュカード——印刷カードをスキャンして3D学習を解放。",
+    "classAnalyticsDesc": "教師向けに生徒別・クラス全体のAIインサイトを提供。",
+    "aiWorksheetDesc": "シャドーティーチャー付きのインタラクティブAIプリント。",
+    "mediVaultDesc": "臨床ナレッジベース付きのAI患者記録システム。",
+    "nutriScanDesc": "食事をスキャンして栄養素を追跡、パーソナライズされた栄養アドバイスを。",
+    "symptomCheckDesc": "AIトリアージ——症状を伝えて、ガイド付き次のステップを。",
+    "medSchedulerDesc": "AI最適化スケジューリング付きのスマート予約システム。",
+    "rxTrackerDesc": "AIコンプライアンスコーチング付きの服薬管理。",
+    "wellnessAIDesc": "メンタルヘルスチェックイン、気分追跡、AIジャーナリング。",
+    "rpgStudioDesc": "スプライトアセット自動生成・ダイナミッククエスト・自律ライブオペレーション付きの完全な2D RPGを構築。",
+    "matchMakerDesc": "ベクトル類似性マッチング・自律アイスブレイク・行動分析で動くマッチングアプリ。",
+    "alphaQuantDesc": "個人ヘッジファンドAI——リアルタイムポートフォリオ追跡・感情分析・自動トレードアラート。",
+    "rpgStudioPrompt": "「自律型の2DピクセルRPGゲームを作って」",
+    "matchMakerPrompt": "「本当に機能するAIマッチングアプリを作って」",
+    "alphaQuantPrompt": "「自律型の投資追跡・分析アプリを作って」"
+  },
+  "langLabel": { "en": "English", "zh-HK": "繁中（港）", "zh-TW": "繁中（台）", "zh-CN": "简中", "ja": "日本語", "ko": "한국어" }
+}

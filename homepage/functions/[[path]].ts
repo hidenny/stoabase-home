@@ -5,19 +5,19 @@ interface Env {
 
 const LANG_META: Record<string, { title: string; description: string; ogLocale: string; htmlLang: string }> = {
   'zh-HK': {
-    title: 'StoaBase — 一句 Prompt，壯大你的生意。',
+    title: 'StoaBase — 一句 Prompt，打造並壯大你的生意。',
     description: '一句 Prompt，建立整個 AI 原生企業——毋需基建，毋需開發團隊。教育、醫療、初創均已實戰驗證。',
     ogLocale: 'zh_HK',
     htmlLang: 'zh-HK',
   },
   'zh-TW': {
-    title: 'StoaBase — 一個提示，搞定你的生意。',
+    title: 'StoaBase — 一個提示，打造並壯大你的生意。',
     description: '一個提示，建立整個 AI 原生企業——無需基礎架構，無需開發團隊。教育、醫療、新創均已實戰驗證。',
     ogLocale: 'zh_TW',
     htmlLang: 'zh-TW',
   },
   'zh-CN': {
-    title: 'StoaBase — 一个提示，搞定你的业务。',
+    title: 'StoaBase — 一个提示，打造并壮大你的业务。',
     description: '一个提示，建立整个 AI 原生企业——无需基础架构，无需开发团队。教育、医疗、初创均已实战验证。',
     ogLocale: 'zh_CN',
     htmlLang: 'zh-CN',
@@ -59,8 +59,8 @@ export default {
       try {
         const body = await request.json() as { email?: string; name?: string; lang?: string };
         const email = (body.email ?? '').trim().toLowerCase();
-        const name  = (body.name  ?? '').trim().slice(0, 100);
-        const lang  = (body.lang  ?? 'en').slice(0, 10);
+        const name = (body.name ?? '').trim().slice(0, 100);
+        const lang = (body.lang ?? 'en').slice(0, 10);
 
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           return Response.json({ ok: false, error: 'invalid_email' }, { status: 400, headers: CORS_HEADERS });
@@ -112,14 +112,14 @@ export default {
           else { text.remove(); }
         },
       })
-      .on('meta[name="description"]',         { element(el: Element) { el.setAttribute('content', meta.description); } })
-      .on('meta[property="og:title"]',        { element(el: Element) { el.setAttribute('content', meta.title); } })
-      .on('meta[property="og:description"]',  { element(el: Element) { el.setAttribute('content', meta.description); } })
-      .on('meta[property="og:locale"]',       { element(el: Element) { el.setAttribute('content', meta.ogLocale); } })
-      .on('meta[property="og:url"]',          { element(el: Element) { el.setAttribute('content', langUrl); } })
-      .on('meta[name="twitter:title"]',       { element(el: Element) { el.setAttribute('content', meta.title); } })
+      .on('meta[name="description"]', { element(el: Element) { el.setAttribute('content', meta.description); } })
+      .on('meta[property="og:title"]', { element(el: Element) { el.setAttribute('content', meta.title); } })
+      .on('meta[property="og:description"]', { element(el: Element) { el.setAttribute('content', meta.description); } })
+      .on('meta[property="og:locale"]', { element(el: Element) { el.setAttribute('content', meta.ogLocale); } })
+      .on('meta[property="og:url"]', { element(el: Element) { el.setAttribute('content', langUrl); } })
+      .on('meta[name="twitter:title"]', { element(el: Element) { el.setAttribute('content', meta.title); } })
       .on('meta[name="twitter:description"]', { element(el: Element) { el.setAttribute('content', meta.description); } })
-      .on('meta[name="twitter:url"]',         { element(el: Element) { el.setAttribute('content', langUrl); } });
+      .on('meta[name="twitter:url"]', { element(el: Element) { el.setAttribute('content', langUrl); } });
 
     return new Response(rewriter.transform(baseResponse).body, {
       status: 200,

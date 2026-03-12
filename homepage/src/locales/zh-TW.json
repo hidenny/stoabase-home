@@ -4,13 +4,27 @@
     "description": "一個提示，建立整個 AI 原生企業——無需基礎架構，無需開發團隊。教育、醫療、新創均已實戰驗證。",
     "ogLocale": "zh_TW"
   },
-  "nav": { "zeroToHundred": "0 到 100", "howItWorks": "如何運作", "apps": "Apps", "platform": "平台", "contact": "聯絡我們" },
+  "nav": {
+    "zeroToHundred": "0 到 100",
+    "howItWorks": "如何運作",
+    "apps": "Apps",
+    "platform": "平台",
+    "contact": "聯絡我們"
+  },
   "hero": {
     "tag": "一個提示。無限可能。",
-    "headline1": "打造並壯大你的", "headline2": "生意", "headline3": "一個提示，搞定。",
+    "headline1": "打造並壯大你的",
+    "headline2": "生意",
+    "headline3": "一個提示，搞定。",
     "sub": "不只是一個 App——一個提示，整個自動化企業就此啟動。店面、帳務、客服、營運，全由 AI 打理，協同運作。",
-    "joinWaitlist": "立即報名", "getInTouch": "聯絡我們", "comingSoon": "即將推出",
-    "badge": { "noCode": "無需寫程式", "modules": "12+ AI 模組", "proven": "實戰驗證" }
+    "joinWaitlist": "立即報名",
+    "getInTouch": "聯絡我們",
+    "comingSoon": "即將推出",
+    "badge": {
+      "noCode": "無需寫程式",
+      "modules": "12+ AI 模組",
+      "proven": "實戰驗證"
+    }
   },
   "prompts": [
     "幫我建一個 AI 營養追蹤 App，能掃描餐點並追蹤營養素",
@@ -21,52 +35,107 @@
     "建一個帶知識搜尋和語音功能的客服 Copilot"
   ],
   "cost": {
-    "heading": "以", "headingAccent": "十分之一成本，上線。",
+    "heading": "以",
+    "headingAccent": "十分之一成本，上線。",
     "sub": "省去龐大的開發和基建費用。StoaBase 讓你用極低預算，快速測試、修正，推出真正的 AI 原生業務。",
     "ofThe": "精力不到十分之一。\n預算不到十分之一。\n時間不到十分之一。",
-    "traditional": "傳統方式", "budget": "預算", "timeline": "時程", "team": "團隊", "infra": "基礎架構",
-    "buildEverything": "自行建置一切", "onePersonAI": "1 人 + AI", "included": "已包含",
-    "bottomLine": "相同產品。相同使用者。", "bottomLineStrong": "成本低 10 倍。
-AI 智能高 10 倍。"
+    "traditional": "傳統方式",
+    "budget": "預算",
+    "timeline": "時程",
+    "team": "團隊",
+    "infra": "基礎架構",
+    "buildEverything": "自行建置一切",
+    "onePersonAI": "1 人 + AI",
+    "included": "已包含",
+    "bottomLine": "相同產品。相同使用者。",
+    "bottomLineStrong": "成本低 10 倍。\nAI 智能高 10 倍。"
   },
   "scale": {
-    "heading": "從 1 到 100。", "headingAccent": "從原型到獨角獸。",
+    "heading": "從 1 到 100。",
+    "headingAccent": "從原型到獨角獸。",
     "sub": "從第一個 AI App 開始。驗證可行。再擴展至完整產品線——共享使用者、資料與智能。",
-    "launch": { "phase": "啟動", "desc": "數週內驗證想法，而非數月" },
-    "pmf": { "phase": "找到市場定位", "desc": "以互補 AI 產品擴大版圖" },
-    "growth": { "phase": "成長引擎", "desc": "完整 AI 原生業務套件，自動運轉" },
-    "unicorn": { "phase": "獨角獸", "desc": "平台效應如複利滾存。每個 App 讓其他 App 更強大。" },
-    "week1": "第 1 週", "month3": "第 3 個月", "year1": "第 1 年", "year3": "第 3 年"
+    "launch": {
+      "phase": "啟動",
+      "desc": "數週內驗證想法，而非數月"
+    },
+    "pmf": {
+      "phase": "找到市場定位",
+      "desc": "以互補 AI 產品擴大版圖"
+    },
+    "growth": {
+      "phase": "成長引擎",
+      "desc": "完整 AI 原生業務套件，自動運轉"
+    },
+    "unicorn": {
+      "phase": "獨角獸",
+      "desc": "平台效應如複利滾存。每個 App 讓其他 App 更強大。"
+    },
+    "week1": "第 1 週",
+    "month3": "第 3 個月",
+    "year1": "第 1 年",
+    "year3": "第 3 年"
   },
   "how": {
-    "heading": "從概念到上線，", "headingLine2": "一個提示，搞定。",
+    "heading": "從概念到上線，",
+    "headingLine2": "一個提示，搞定。",
     "sub": "無需基礎架構。無需開發團隊。說出你想要的，就夠了。",
-    "step1Title": "描述你的 App", "step1Desc": "打個提示。「幫我建一個可掃描餐點的 AI 營養追蹤器。」就這樣。白話文搞定。",
-    "step2Title": "AI 幫你建好一切", "step2Desc": "StoaBase 自動接上適合的 AI 模型、資料層、知識庫、使用者角色及分析功能——一步到位。",
-    "step3Title": "上線，然後成長", "step3Desc": "你的 App 即刻上線。加入更多 App 到工作區——同享情境、使用者及 AI 功能。"
+    "step1Title": "描述你的 App",
+    "step1Desc": "打個提示。「幫我建一個可掃描餐點的 AI 營養追蹤器。」就這樣。白話文搞定。",
+    "step2Title": "AI 幫你建好一切",
+    "step2Desc": "StoaBase 自動接上適合的 AI 模型、資料層、知識庫、使用者角色及分析功能——一步到位。",
+    "step3Title": "上線，然後成長",
+    "step3Desc": "你的 App 即刻上線。加入更多 App 到工作區——同享情境、使用者及 AI 功能。"
   },
   "traction": {
-    "heading": "已在實戰中。", "sub": "教育業驗證了平台。醫療業確認了擴展性。",
-    "tokens": "已處理 Token", "models": "AI 模型", "agents": "活躍 Agent", "users": "使用者記錄"
+    "heading": "已在實戰中。",
+    "sub": "教育業驗證了平台。醫療業確認了擴展性。",
+    "tokens": "已處理 Token",
+    "models": "AI 模型",
+    "agents": "活躍 Agent",
+    "users": "使用者記錄"
   },
   "buildingWith": "以 StoaBase 打造中",
   "quote": "「一個生意。多個 App。每個 App 共享使用者、知識、記憶與分析——這就是 AI 原生企業。」",
-  "autonomous": { "heading": "自主經營企業，", "headingLine2": "一切俱備。", "sub": "一個平台。為你的業務打造完整 AI App 套件——共享情境、使用者與智能。" },
-  "platform": { "heading": "你所建造一切的", "headingLine2": "AI 底層基礎。", "sub": "12+ 項核心服務。一個平台。告別供應商束縛。" },
-  "cta": { "heading": "你下一步想建的，", "headingLine2": "從這裡開始。", "sub": "一個平台。完整 AI 技術堆疊。無需寫程式。" },
+  "autonomous": {
+    "heading": "自主經營企業，",
+    "headingLine2": "一切俱備。",
+    "sub": "一個平台。為你的業務打造完整 AI App 套件——共享情境、使用者與智能。"
+  },
+  "platform": {
+    "heading": "你所建造一切的",
+    "headingLine2": "AI 底層基礎。",
+    "sub": "你下一個構建的基石。"
+  },
+  "cta": {
+    "heading": "你下一步想建的，",
+    "headingLine2": "從這裡開始。",
+    "sub": "一個平台。完整 AI 技術堆疊。無需寫程式。"
+  },
   "cap": {
-    "aiLabel": "AI 及 LLM 服務", "aiDesc": "50+ 模型、路由、對話、串流、工具、記憶",
-    "trackLabel": "統一追蹤", "trackDesc": "事件、工作階段、逐使用者分析",
-    "dataLabel": "資料服務", "dataDesc": "KV 儲存、使用者記錄、結構化資料",
-    "workflowLabel": "工作流程引擎", "workflowDesc": "視覺流程建構器、MCP、工具編排",
-    "knowledgeLabel": "知識管理", "knowledgeDesc": "RAG、文件搜尋、向量檢索",
-    "docsLabel": "文件解析", "docsDesc": "PDF、URL、檔案處理及擷取",
-    "speechLabel": "語音及 VAD", "speechDesc": "TTS、STT、語音活動偵測",
-    "gameLabel": "遊戲 AI / 3D", "gameDesc": "互動內容、素材生成、3D 引擎",
-    "mediaLabel": "媒體生成", "mediaDesc": "圖像、音訊、影片生成",
-    "usersLabel": "使用者管理", "usersDesc": "個人資料、角色、組織級存取",
-    "socialLabel": "社群動態", "socialDesc": "貼文、留言、即時分享",
-    "advancedLabel": "進階功能", "advancedDesc": "Podcast、心智圖、測驗、協同編輯"
+    "aiLabel": "AI 及 LLM 服務",
+    "aiDesc": "50+ 模型、路由、對話、串流、工具、記憶",
+    "trackLabel": "統一追蹤",
+    "trackDesc": "事件、工作階段、逐使用者分析",
+    "dataLabel": "資料服務",
+    "dataDesc": "KV 儲存、使用者記錄、結構化資料",
+    "workflowLabel": "工作流程引擎",
+    "workflowDesc": "視覺流程建構器、MCP、工具編排",
+    "knowledgeLabel": "知識管理",
+    "knowledgeDesc": "RAG、文件搜尋、向量檢索",
+    "docsLabel": "文件解析",
+    "docsDesc": "PDF、URL、檔案處理及擷取",
+    "speechLabel": "語音及 VAD",
+    "speechDesc": "TTS、STT、語音活動偵測",
+    "gameLabel": "遊戲 AI / 3D",
+    "gameDesc": "互動內容、素材生成、3D 引擎",
+    "mediaLabel": "媒體生成",
+    "mediaDesc": "圖像、音訊、影片生成",
+    "usersLabel": "使用者管理",
+    "usersDesc": "個人資料、角色、組織級存取",
+    "socialLabel": "社群動態",
+    "socialDesc": "貼文、留言、即時分享",
+    "advancedLabel": "進階功能",
+    "advancedDesc": "Podcast、心智圖、測驗、協同編輯"
   },
   "tabs": {
     "rodysseySubline": "AI 智慧校園——從課室到家中",
@@ -102,5 +171,12 @@ AI 智能高 10 倍。"
     "alreadyJoined": "你已經在候名名單上！",
     "error": "出了一些問題，請再試一次。"
   },
-  "langLabel": { "en": "English", "zh-HK": "繁中（港）", "zh-TW": "繁中（台）", "zh-CN": "简中", "ja": "日本語", "ko": "한국어" }
+  "langLabel": {
+    "en": "English",
+    "zh-HK": "繁中（港）",
+    "zh-TW": "繁中（台）",
+    "zh-CN": "简中",
+    "ja": "日本語",
+    "ko": "한국어"
+  }
 }

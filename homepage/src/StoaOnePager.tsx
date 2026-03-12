@@ -1203,7 +1203,7 @@ function LangSwitcher() {
   );
 }
 
-function WaitlistModal({ onClose }: { onClose: () => void }) {
+function WaitlistModal({ onClose, onSuccess }: { onClose: () => void; onSuccess: () => void }) {
   const { t, i18n } = useTranslation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -1219,9 +1219,15 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
         body: JSON.stringify({ name, email, lang: i18n.language }),
       });
       const data = await res.json() as { ok: boolean; error?: string };
-      if (data.ok) setStatus('success');
-      else if (data.error === 'already_joined') setStatus('already');
-      else setStatus('error');
+      if (data.ok) {
+        setStatus('success');
+        setTimeout(() => { onSuccess(); onClose(); }, 1200);
+      } else if (data.error === 'already_joined') {
+        setStatus('already');
+        setTimeout(() => { onSuccess(); onClose(); }, 1200);
+      } else {
+        setStatus('error');
+      }
     } catch {
       setStatus('error');
     }
@@ -1242,7 +1248,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
 
         {done ? (
           <div style={{ textAlign: 'center', padding: '24px 0' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '16px' }}>{status === 'success' ? '🎉' : '✅'}</div>
+            <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🎉</div>
             <p style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--ink)', margin: '0 0 8px' }}>
               {status === 'success' ? t('waitlist.success') : t('waitlist.alreadyJoined')}
             </p>
@@ -1292,6 +1298,7 @@ export default function StoaOnePager() {
   const [activeTab, setActiveTab] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const [waitlistJoined, setWaitlistJoined] = useState(false);
   const scrollTo = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
@@ -1328,7 +1335,7 @@ export default function StoaOnePager() {
 
   return (
     <div className="stoa-page">
-      {waitlistOpen && <WaitlistModal onClose={() => setWaitlistOpen(false)} />}
+      {waitlistOpen && <WaitlistModal onClose={() => setWaitlistOpen(false)} onSuccess={() => setWaitlistJoined(true)} />}
       {/* ── Ambient orbs ── */}
       <div className="stoa-orb stoa-orb-1" />
       <div className="stoa-orb stoa-orb-2" />
@@ -1417,6 +1424,11 @@ export default function StoaOnePager() {
               {t('hero.getInTouch')}
             </a>
           </div>
+          {waitlistJoined && (
+            <p style={{ marginTop: '12px', fontSize: '0.9rem', color: 'var(--ink)', fontWeight: 600, textAlign: 'center' }}>
+              🎉 {t('waitlist.success')}
+            </p>
+          )}
         </Reveal>
 
         <Reveal delay={5}>
@@ -1805,6 +1817,11 @@ export default function StoaOnePager() {
               hello@stoabase.ai
             </a>
           </div>
+          {waitlistJoined && (
+            <p style={{ marginTop: '12px', fontSize: '0.9rem', color: '#fff', fontWeight: 600, textAlign: 'center', opacity: 0.9 }}>
+              🎉 {t('waitlist.success')}
+            </p>
+          )}
         </Reveal>
         <Reveal delay={4}>
           <p style={{ marginTop: 40, fontSize: "0.8rem", color: "var(--slate-500)" }}>

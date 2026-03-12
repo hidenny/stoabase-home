@@ -44,6 +44,11 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     return env.ASSETS.fetch(request);
   }
 
+  // Let API routes pass to their specific function handlers
+  if (firstSegment === 'api') {
+    return fetch(request);
+  }
+
   // Not a language path — serve index.html
   const meta = LANG_META[firstSegment];
   if (!meta) {

@@ -1,9 +1,9 @@
 {
   "nav": { "zeroToHundred": "0 到 100", "howItWorks": "點運作", "apps": "Apps", "platform": "平台", "contact": "聯絡我們" },
   "hero": {
-    "tag": "一句提示。無限可能。",
-    "headline1": "打造並壯大你的", "headline2": "生意", "headline3": "一句提示，搞掂。",
-    "sub": "不只是一個 App——一句提示，整個自動化企業就此誕生。店面、帳目、客服、營運，每個環節由 AI 打理，協力運作，一氣呵成。",
+    "tag": "一句 Prompt。無限可能。",
+    "headline1": "打造並壯大你的", "headline2": "生意", "headline3": "一句 Prompt，搞掂。",
+    "sub": "不只是一個 App——一句 Prompt，整個自動化企業就此誕生。店面、帳目、客服、營運，每個環節由 AI 打理，協力運作，一氣呵成。",
     "joinWaitlist": "搶先報名", "getInTouch": "聯絡我們", "comingSoon": "快將推出",
     "badge": { "noCode": "毋需寫程式", "modules": "12+ AI 模組", "proven": "實戰驗證" }
   },
@@ -33,9 +33,9 @@
     "week1": "第 1 週", "month3": "第 3 個月", "year1": "第 1 年", "year3": "第 3 年"
   },
   "how": {
-    "heading": "由概念到上線，", "headingLine2": "一句提示，搞掂。",
+    "heading": "由概念到上線，", "headingLine2": "一句 Prompt，搞掂。",
     "sub": "毋需基建。毋需開發團隊。說出你想要的，就夠了。",
-    "step1Title": "描述你的 App", "step1Desc": "打個提示。「幫我建一個可掃描餐點的 AI 營養追蹤器。」就係咁——白話文搞定。",
+    "step1Title": "描述你的 App", "step1Desc": "打個 Prompt。「幫我建一個可掃描餐點的 AI 營養追蹤器。」就係咁——白話文搞定。",
     "step2Title": "AI 幫你搭好一切", "step2Desc": "StoaBase 自動接駁合適的 AI 模型、數據層、知識庫、用戶角色及分析功能——一步到位。",
     "step3Title": "上線，然後擴大", "step3Desc": "你的 App 即刻上線。加入更多 App 到你的工作區——同享情境、用戶及 AI 功能。"
   },

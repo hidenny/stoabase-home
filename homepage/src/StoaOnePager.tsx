@@ -124,7 +124,7 @@ function TypingPrompt() {
 
   return (
     <div className="stoa-prompt-box">
-      <span className="stoa-prompt-icon">⚡</span>
+      <span className="stoa-prompt-icon"><Sparkles size={16} color="#a78bfa" /></span>
       <span ref={textRef} className="stoa-prompt-text">
         {text.slice(0, charIdx)}
         {phase === "typing" && <span className="stoa-cursor" />}
